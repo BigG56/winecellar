@@ -1,0 +1,365 @@
+openapi: 3.0.1
+info:
+  title: WineCellar API
+  version: '1.0'
+  description: E-Commerce app
+  contact:
+    email: tyz_56@hotmail.com
+    name: Tyler Fielding
+paths:
+  /auth/register:
+    summary: register user
+    description: registers a new user
+    post:
+      summary: registers users
+      description: registers a new user to the user database
+      operationId: auth_register
+      requestBody:
+        description: A new user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+      responses:
+        '200':
+          description: Successfully registers user
+          content:
+            application/json:
+              examples:
+                register:
+                  value:
+                    email: john_doe@hotmail.com
+                    password: password
+                    firstname: John
+                    lastname: Doe
+                    google: null
+                    facebook: null
+                    username: JohnDoe
+        default:
+          description: Error
+      tags:
+        - Register
+  /auth/login:
+    summary: login path
+    description: logs user in
+    post:
+      summary: log in
+      description: logs a user in to the site
+      operationId: auth_login
+      requestBody:
+        description: Login object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        '200':
+          description: Successfully logs a user in
+          content:
+            application/json:
+              examples:
+                login:
+                  value:
+                    username: JohnDoe
+                    password: password
+        default:
+          description: Error
+      tags:
+        - Login
+  /users/:username:
+    summary: get user
+    description: gets a user by id
+    get:
+      summary: gets user
+      description: gets a user by user id
+      operationId: user_username
+      responses:
+        '200':
+          description: Successfully gets a user by id
+          content:
+            application/json:
+              examples:
+                userId:
+                  value: '{}'
+        default:
+          description: Error
+      tags:
+        - Username
+    put:
+      summary: change user
+      description: changes user details
+      operationId: user_update
+      requestBody:
+        description: UserUpdate object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+      responses:
+        '200':
+          description: Successfully update user
+          content:
+            application/json:
+              examples:
+                user_update:
+                  value:
+                    email: john_doe1@hotmail.com
+                    password: password1
+                    firstname: Johnathan
+                    lastname: doe
+                    username: JohnDoe1
+        default:
+          description: Error
+      tags:
+        - UserUpdate
+  /products/:
+    summary: gets products
+    description: gets all products from database
+    get:
+      summary: gets products
+      description: gets all products
+      operationId: products
+      responses:
+        '200':
+          description: Successfully gets all products
+          content:
+            application/json:
+              examples:
+                products:
+                  value: '{}'
+        default:
+          description: Error
+      tags:
+        - Products
+  /products/:productId:
+    summary: gets product by id
+    description: gets products by specific id
+    get:
+      summary: gets product by id
+      description: gets a product by the id designated to it
+      operationId: products_productId
+      responses:
+        '200':
+          description: Successfully gets product by id
+          content:
+            application/json:
+              examples:
+                product_id:
+                  value:
+                    id: 1
+        default:
+          description: Error
+      tags:
+        - ProductId
+  /products/:productType:
+    summary: get product by type
+    description: gets all products by types
+    get:
+      summary: get products by type
+      description: gets all products for specific types
+      operationId: product_productType
+      responses:
+        '200':
+          description: Successfully gets products by type
+          content:
+            application/json:
+              examples:
+                products_productType:
+                  value: '{}'
+        default:
+          description: Error
+      tags:
+        - ProductType
+  /carts/myCart:
+    summary: gets cart
+    description: gets a users cart
+    get:
+      summary: gets cart
+      description: gets a user cart by id
+      operationId: myCart
+      responses:
+        '200':
+          description: Successfully gets user cart
+          content:
+            application/json:
+              examples:
+                myCart:
+                  value: '{}'
+        default:
+          description: Error
+      tags:
+        - MyCart
+    post:
+      summary: create cart
+      description: creates a cart for user
+      operationId: createCart
+      responses:
+        '200':
+          description: Successfully creates a cart
+          content:
+            application/json:
+              examples:
+                createCart:
+                  value: '{}'
+        default:
+          description: Error
+      tags:
+        - CreateCart
+  /carts/myCart/items:
+    summary: add item to cart
+    description: adds a item to user cart
+    post:
+      summary: add item to cart
+      description: adds a item to the users cart
+      operationId: addItem
+      responses:
+        '200':
+          description: Successfully added item to cart
+          content:
+            application/json:
+              examples:
+                addItem:
+                  value:
+                    qty: 5
+        default:
+          description: Error
+      tags:
+        - AddItem
+  /carts/myCart/items/:cartItemId:
+    summary: change cart item
+    description: changes the item in cart
+    put:
+      summary: change cart item
+      description: changes the cart item in user cart
+      operationId: changeItem
+      responses:
+        '200':
+          description: Successfully changed item in cart
+          content:
+            application/json:
+              examples:
+                changeItem:
+                  value:
+                    qty: 7
+        default:
+          description: Error
+      tags:
+        - ChangeItem
+    delete:
+      summary: delete item
+      description: deletes item in cart
+      operationId: deleteItem
+      responses:
+        '200':
+          description: Successfully deleted item
+          content:
+            application/json:
+              examples:
+                deleteItem:
+                  value: '{}'
+        default:
+          description: Error
+      tags:
+        - DeleteItem
+  /carts/myCart/checkout:
+    summary: cart checkout
+    description: checkout items in your cart
+    post:
+      summary: checks out cart
+      description: checks out the items in users cart
+      operationId: checkout
+      responses:
+        '200':
+          description: Successfully purchases items in cart
+          content:
+            application/json:
+              examples:
+                checkout:
+                  value: '{}'
+        default:
+          description: Error
+      tags:
+        - Checkout
+  /orders/:
+    summary: gets order
+    description: gets order by user
+    get:
+      summary: get orders
+      description: gets order by user id
+      operationId: orders
+      responses:
+        '200':
+          description: Successfully gets orders by user id
+          content:
+            application/json:
+              examples:
+                orders:
+                  value: '{}'
+        default:
+          description: Error
+      tags:
+        - Orders
+  /orders/:orderId:
+    summary: gets orders
+    description: gets order by order id
+    get:
+      summary: gets orders
+      description: gets orders by order id
+      operationId: orders_orderId
+      responses:
+        '200':
+          description: Successfully gets orders by order id
+          content:
+            application/json:
+              examples:
+                orderId:
+                  value: '{}'
+        default:
+          description: Error
+      tags:
+        - OrderId
+components:
+  schemas:
+    Register:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        google:
+          type: object
+        facebook:
+          type: object
+        username:
+          type: string
+      xml:
+        name: Register
+    Login:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      xml:
+        name: Login
+    UserUpdate:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        username:
+          type: string
+      xml:
+        name: UserUpdate

@@ -1,0 +1,20 @@
+header {
+   margin: auto;
+   border: 3px solid;
+}
+
+.header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button-container {
+    color: gold;
+}
+
+.title {
+    font-size: 60px;
+    color: gold;
+    font-family: 'Cookie', cursive;
+}
