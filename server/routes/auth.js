@@ -1,5 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const CartService = require('../services/CartService');
+const CartServiceInstance = new CartService();
+const UserService = require('../services/UserService');
+const UserServiceInstance = new UserService();
 const AuthService = require('../services/AuthService');
 const AuthServiceInstance = new AuthService();
 
@@ -33,4 +37,42 @@ module.exports = (app, passport) => {
       next(err);
     }
   });
+
+  router.get('/logged_in', async (req, res, next) => {
+    try {
+      const { id } = req.user;
+    
+      const cart = await CartServiceInstance.loadCart(id);
+      const user = await UserServiceInstance.get({ id });
+    
+      res.status(200).send({
+        cart,
+        loggedIn: true,
+        user
+      });
+    } catch(err) {
+      next(err);
+    }
+  });
+
+  // Google Login Endpoint
+  router.get('/google', passport.authenticate('google', { scope: ["profile"] } ));
+
+  // Google Login Callback Endpoint
+  router.get('/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    async (req, res) => {
+      res.redirect('/');
+    }
+  );
+
+  router.get('/facebook', passport.authenticate('facebook'));
+
+  // Facebook Login Callback Endpoint
+  router.get('/facebook/callback',
+    passport.authenticate('facebook', { failureRedirect: '/login' }),
+    async (req, res) => {
+      res.redirect('/');
+    }
+  );
 }

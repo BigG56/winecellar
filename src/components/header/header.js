@@ -6,13 +6,14 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
+  
 
   return (
       <header>
           <div className="header-bar">
               <p className="title">The Wine Celar</p>
               <div className="button-container">
-                {
+                { 
                   <Button color="inherit" component={Link} to="/login">Login</Button>
                 }
                 {
