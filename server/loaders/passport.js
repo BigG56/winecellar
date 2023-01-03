@@ -37,7 +37,7 @@ module.exports = (app) => {
 
   // Configure strategy to be use for Google login
   passport.use(new GoogleStrategy({
-    clientID: process.env.CONSUMER_KEY,
+    clientID: GOOGLE.CONSUMER_KEY,
     clientSecret: GOOGLE.CONSUMER_SECRET,
     callbackURL: GOOGLE.CALLBACK_URL
   },
