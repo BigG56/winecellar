@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import Header from './components/header/header.js';
 import { useDispatch } from 'react-redux';
 import { checkLoginStatus } from './store/auth/Auth.actions';
 import Home from './routes/Home/Home';
 import Login from './routes/Login/Login';
+import ProductDetails from './routes/ProductDetails/ProductDetails';
+//import Account from './routes/Account/Account';
+//import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Register from './routes/Register/Register';
 
 function App() {
 
@@ -22,11 +26,16 @@ function App() {
 
   return (
     <div className="App" style={{flex: 1}}>
-     <Router basename={'/client'}>
+     <Router basename={"home"}>
         <Header />
         <Routes>
-          <Route exact path="/" component={Home}/>
-          <Route path="/login" component={Login}/>
+          {/* Public Routes */}
+          <Route exact path={"/"} component={Home}/>
+          <Route path={"/login"} component={Login}/>
+          <Route path={"/products/:productsId"} component={ProductDetails}/>
+          <Route path={"/register"} component={Register}/>
+          {/* Private Routes */}
+          <Route path="/" element={<Navigate to="/home" replace />} />
         </Routes>
       </Router>
     </div>

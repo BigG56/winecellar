@@ -13,7 +13,7 @@ function Home() {
 
   useEffect(() => {
     async function load() {
-      await dispatch(loadProducts());
+     await dispatch(loadProducts());
     }
     load();
   }, [dispatch]);

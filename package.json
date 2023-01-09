@@ -2,7 +2,8 @@
   "name": "winecellar",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/client",
+  "proxy": "http://localhost:5000",
+  "homepage": "/home",
     "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",

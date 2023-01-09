@@ -10,6 +10,7 @@ export const loadProduct = createAsyncThunk(
         product: response
       };
     } catch(err) {
+      console.error(err);
       throw err;
     }
   }
@@ -24,6 +25,7 @@ export const loadProducts = createAsyncThunk(
         products: response
       }
     } catch(err) {
+      console.error(err);
       throw err;
     }
   }
@@ -38,6 +40,7 @@ export const loadProductType = createAsyncThunk(
           products: response
         }
       } catch(err) {
+        console.error(err);
         throw err;
       }
     }

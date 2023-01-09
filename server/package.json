@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "E-commerce app",
   "main": "index.js",
+  "engines": {
+    "npm": "18.x"
+  },
   "scripts": {
     "start": "nodemon -r dotenv/config server.js",
     "test": "echo \"Error: no test specified\" && exit 1"

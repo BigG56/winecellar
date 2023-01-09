@@ -19,7 +19,7 @@ function ProductDetails() {
 
   const dispatch = useDispatch();
   const products = useSelector(state => state.products);
-  const cart = useSelector(state => state.cart);
+  //const cart = useSelector(state => state.cart);
   const product = products[productId];
 
   const [ heroImg, setHeroImg ] = useState("https://elcopcbonline.com/photos/product/4/176/4.jpg")
@@ -71,9 +71,9 @@ function ProductDetails() {
       <div className="product-info-container">
         { product &&
           <>
-            <Typography variant="h3">{product?.name}</Typography>
-            <Typography variant="h6">{product?.description}</Typography>
-            <Typography variant="h6">{product?.price / 100}</Typography>
+            <Typography variant="h3">{product.name}</Typography>
+            <Typography variant="h6">{product.description}</Typography>
+            <Typography variant="h6">{product.price / 100}</Typography>
             <Incrementer
               onDecrement={handleDecrement}
               onIncrement={handleIncrement}

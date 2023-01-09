@@ -13,9 +13,9 @@ export const fetchProducts = async () => {
 }
 
 // API interface for loading a product by product ID
-export const fetchProduct = async (productId) => {
+export const fetchProduct = async (Id) => {
   try {
-    const response = await API.get(`products/${productId}`);
+    const response = await API.get(`products/${Id}`);
     
     return response.data;
   } catch(err) {
@@ -23,9 +23,9 @@ export const fetchProduct = async (productId) => {
   }
 }
 
-export const fetchProductType = async (productType) => {
+export const fetchProductType = async (Type) => {
     try {
-      const response = await API.get(`products/${productType}`);
+      const response = await API.get(`products/${Type}`);
       
       return response.data;
     } catch(err) {

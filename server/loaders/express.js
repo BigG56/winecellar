@@ -15,8 +15,10 @@ module.exports = (app) => {
   // Parses urlencoded bodies
   app.use(bodyParser.urlencoded({ extended: true }));
 
+  app.set("view engine", "");
   app.set('trust proxy', 1);
   const store = new session.MemoryStore();
+
   
   // Creates a session
   app.use(

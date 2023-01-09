@@ -13,6 +13,7 @@ export const checkLoginStatus = createAsyncThunk(
         user: response.user
       }
     } catch(err) {
+      console.error(err);
       throw err;
     }
   }
@@ -28,6 +29,7 @@ export const loginUser = createAsyncThunk(
         isAuthenticated: true
       }
     } catch(err) {
+      console.error(err);
       throw err;
     }
   }
@@ -40,6 +42,7 @@ export const registerUser = createAsyncThunk(
       await register(credentials);
       return {};
     } catch(err) {
+      console.error(err);
       throw err;
     }
   }

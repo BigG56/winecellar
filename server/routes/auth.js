@@ -9,7 +9,7 @@ const AuthServiceInstance = new AuthService();
 
 module.exports = (app, passport) => {
 
-  app.use('/api/auth', router);
+  app.use('/home/auth', router);
 
   // Registration Endpoint
   router.post('/register', async (req, res, next) => {
@@ -36,6 +36,13 @@ module.exports = (app, passport) => {
     } catch(err) {
       next(err);
     }
+  });
+
+  router.post('/logout', function(req, res, next){
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.redirect('/');
+    });
   });
 
   router.get('/logged_in', async (req, res, next) => {
