@@ -1,13 +1,18 @@
 .grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 20px;
-    box-sizing: border-box;
-  }
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  box-sizing: border-box;
+}
   
-  .grid-item {
-    justify-self: center;
-    align-self: center;
-    text-align: center;
-  }
+.grid-item {
+  justify-self: center;
+  align-self: center;
+  text-align: center;
+}
   
+h1 {
+  height: 500px;
+  align-items: center;
+  justify-content: center;
+}

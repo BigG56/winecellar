@@ -4,7 +4,7 @@ const UserModelInstance = new UserModel();
 
 module.exports = class UserService {
 
-  async get(data) {
+  async getUsername(data) {
 
     const { userName } = data;
 
@@ -21,6 +21,27 @@ module.exports = class UserService {
 
     } catch(err) {
       console.error(err);
+      throw err;
+    }
+
+  };
+
+  async getId(data) {
+
+    const { id } = data;
+
+    try {
+      // Check if user already exists
+      const user = await UserModelInstance.findById(id);
+
+      // If user doesn't exist, reject
+      if (!user) {
+        throw createError(404, 'User record not found');
+      }
+
+      return user;
+
+    } catch(err) {
       throw err;
     }
 

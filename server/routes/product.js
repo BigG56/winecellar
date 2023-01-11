@@ -20,11 +20,11 @@ module.exports = (app) => {
     }
   });
 
-  router.get('/:productId', async (req, res, next) => {
+  router.get('/:productType', async (req, res, next) => {
     try {
-      const { productId } = req.params;
+      const { productType } = req.params;
 
-      const response = await ProductServiceInstance.getById(productId);
+      const response = await ProductServiceInstance.getByType(productType);
 
       res.status(200).send(response);
     } catch(err) {
@@ -32,11 +32,11 @@ module.exports = (app) => {
     }
   });
 
-  router.get('/:productId/:productType', async (req, res, next) => {
+  router.get('/:productType/:productId', async (req, res, next) => {
     try {
-      const { productType } = req.params;
+      const { productId } = req.params;
 
-      const response = await ProductServiceInstance.getByType(productType);
+      const response = await ProductServiceInstance.getById(productId);
 
       res.status(200).send(response);
     } catch(err) {

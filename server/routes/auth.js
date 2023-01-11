@@ -30,7 +30,7 @@ module.exports = (app, passport) => {
     try {
       const { username, password } = req.body;
     
-      const response = await AuthServiceInstance.login({ username, password});
+      const response = await AuthServiceInstance.login({ email: username, password});
     
       res.status(200).send(response);
     } catch(err) {

@@ -7,8 +7,6 @@ import { checkLoginStatus } from './store/auth/Auth.actions';
 import Home from './routes/Home/Home';
 import Login from './routes/Login/Login';
 import ProductDetails from './routes/ProductDetails/ProductDetails';
-//import Account from './routes/Account/Account';
-//import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Register from './routes/Register/Register';
 
 function App() {
@@ -26,14 +24,15 @@ function App() {
 
   return (
     <div className="App" style={{flex: 1}}>
-     <Router basename={"home"}>
+     <Router basename="/home">
         <Header />
         <Routes>
           {/* Public Routes */}
-          <Route exact path={"/"} component={Home}/>
-          <Route path={"/login"} component={Login}/>
-          <Route path={"/products/:productsId"} component={ProductDetails}/>
-          <Route path={"/register"} component={Register}/>
+          <Route exact path="/" element={<Home />}/>
+          <Route path="/login" element={<Login />}/>
+          <Route path="/register" element={<Register/>}/>
+          <Route path="/products" element={<ProductDetails />}/>
+          <Route path="/products/:productsType" element={<ProductDetails />}/>
           {/* Private Routes */}
           <Route path="/" element={<Navigate to="/home" replace />} />
         </Routes>

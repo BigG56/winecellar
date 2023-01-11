@@ -22,7 +22,7 @@ function ProductDetails() {
   //const cart = useSelector(state => state.cart);
   const product = products[productId];
 
-  const [ heroImg, setHeroImg ] = useState("https://elcopcbonline.com/photos/product/4/176/4.jpg")
+  //const [ heroImg, setHeroImg ] = useState("https://elcopcbonline.com/photos/product/4/176/4.jpg")
 
   useEffect(() => {
     if (!products[productId]) {
@@ -49,25 +49,6 @@ function ProductDetails() {
 
   return (
     <section className="product-details-container">
-      <div className="product-img-container">
-        <div className="product-hero-img">
-          <img className="hero-img" src={heroImg} alt="" />
-        </div>
-        <div className="product-img-bar">
-          <div className="alt-product-img-container" onClick={() => {setHeroImg("https://elcopcbonline.com/var/photo/product/2000x4000/53/225/8.jpg")}}>
-            <img style={{maxWidth: '100%', maxHeight: '100%'}} src={"https://elcopcbonline.com/var/photo/product/2000x4000/53/225/8.jpg"} alt=""/>
-          </div>
-          <div className="alt-product-img-container" onClick={() => {setHeroImg("https://elcopcbonline.com/var/photo/product/2000x4000/39/211/9.jpg")}}>
-            <img style={{maxWidth: '100%', maxHeight: '100%'}} src={"https://elcopcbonline.com/var/photo/product/2000x4000/39/211/9.jpg"} alt=""/>
-          </div>
-          <div className="alt-product-img-container" onClick={() => {setHeroImg("https://elcopcbonline.com/var/photo/product/234x200/76/248/1.jpg")}}>
-            {/* <img style={{maxWidth: '100%', maxHeight: '100%'}} src={"https://elcopcbonline.com/var/photo/product/234x200/76/248/1.jpg"}/> */}
-          </div>
-          <div className="alt-product-img-container" onClick={() => {setHeroImg("https://elcopcbonline.com/var/photo/product/2000x4000/41/213/11.jpg")}}>
-            <img style={{maxWidth: '100%', maxHeight: '100%'}} src={"https://elcopcbonline.com/var/photo/product/2000x4000/41/213/11.jpg"} alt=""/>
-          </div>
-        </div>
-      </div>
       <div className="product-info-container">
         { product &&
           <>

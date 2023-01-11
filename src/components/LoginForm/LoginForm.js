@@ -2,21 +2,32 @@ import React, { useState } from 'react';
 import { Form, Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Button from '../../components/Button/Button';
-import Divider from '@material-ui/core/Divider';
-import TextField from '../../components/TextField/TextField';
-
-import './Login.css';
-
-import { loginUser } from '../../store/auth/Auth.actions';
-
 import * as Yup from 'yup';
+import TextField from '../TextField/TextField';
+import Button from '@material-ui/core/Button';
 
-const Login = () => {
+import { loginUser } from '../../store/auth/Auth.reducer';
+
+const LoginForm = (props) => {
+
   const history = useNavigate();
   const dispatch = useDispatch();
   const { error } = useSelector(state => state.auth);
   const [isLoading, setIsLoading] = useState(false);
+
+  const initialValues = {
+    email: "",
+    password: ""
+  };
+
+  const loginSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email address is required"),
+
+    password: Yup.string()
+      .required("Password is required")
+  });
 
   // Login handler
   const handleLogin = async (credentials) => {
@@ -30,21 +41,9 @@ const Login = () => {
     }
   }
 
-  const loginSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Invalid email address")
-      .required("Email address is required"),
-
-    password: Yup.string()
-      .required("Password is required")
-  })
-
   return (
-    <div className="app">
-      <div className="formComp">
-        <div className="formWrapper">
-          <Formik
-            initialValues={{email: '', password: ''}}
+      <Formik
+            initialValues={initialValues}
             validationSchema={loginSchema}
             validateOnBlur
             onSubmit={async (values) => {
@@ -70,21 +69,18 @@ const Login = () => {
                 error && <div>{error}</div>
               }
               <Button variant="contained" color="primary" type="submit" isLoading={isLoading}>Submit</Button>
-              <p>Forgotten your password?</p>
+              {/* <p>Forgotten your password?</p>
               <Divider />
               <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                 <p>Sign in with</p>
               </div>
               <div className="social-btn-container">
-                <Button variant="contained" className="facebook-btn" href="/home/auth/facebook">Facebook</Button>
-                <Button variant="contained" className="google-btn" href="/home/auth/google">Google</Button>
-              </div>
+                <Button variant="contained" className="facebook-btn">Facebook</Button>
+                <Button variant="contained" className="google-btn">Google</Button>
+              </div> */}
             </Form>
           </Formik>
-        </div>
-      </div>
-    </div>
   );
 }
 
-export default Login;
+export default LoginForm;

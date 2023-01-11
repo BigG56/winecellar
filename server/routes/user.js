@@ -8,12 +8,12 @@ module.exports = (app) => {
 
   app.use('/home/users', router);
 
-  router.get('/:userId', async (req, res, next) => {
+  router.get('/:userName', async (req, res, next) => {
 
     try {
-      const { userId } = req.params;
+      const { userName } = req.params;
     
-      const response = await UserServiceInstance.get({id: userId});
+      const response = await UserServiceInstance.getUsername({userName});
       res.status(200).send(response);
     } catch(err) {
       next(err);
@@ -24,9 +24,9 @@ module.exports = (app) => {
   router.get('/:userName/:userId', async (req, res, next) => {
 
     try {
-      const { userName } = req.params;
+      const { userId } = req.params;
     
-      const response = await UserServiceInstance.get({userName});
+      const response = await UserServiceInstance.getId({id: userId});
       res.status(200).send(response);
     } catch(err) {
       next(err);

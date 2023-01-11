@@ -48,6 +48,30 @@ module.exports = class UserModel {
     }
   }
 
+  //Find user by email
+  async findOneByEmail(email) {
+    try {
+
+      // Generate SQL statement
+      const statement = `SELECT *
+                         FROM users
+                         WHERE email = $1`;
+      const values = [email];
+  
+      // Execute SQL statment
+      const result = await db.query(statement, values);
+
+      if (result.rows?.length) {
+        return result.rows[0]
+      }
+  
+      return null;
+
+    } catch(err) {
+      throw new Error(err);
+    }
+  }
+
   // Find user by username
   async findByUsername(username) {
     try {

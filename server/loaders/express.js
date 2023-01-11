@@ -15,7 +15,6 @@ module.exports = (app) => {
   // Parses urlencoded bodies
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  app.set("view engine", "");
   app.set('trust proxy', 1);
   const store = new session.MemoryStore();
 
@@ -30,7 +29,7 @@ module.exports = (app) => {
       cookie: {
         secure: false,
         maxAge: 24 * 60 * 60 * 1000,
-        sameSite: 'none'
+        sameSite: 'Secure'
       }
     })
   );
