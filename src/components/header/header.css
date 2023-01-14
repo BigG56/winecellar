@@ -18,3 +18,8 @@ header {
     color: gold;
     font-family: 'Cookie', cursive;
 }
+
+.head {
+    background-color: purple;
+    height: 80px;
+  }

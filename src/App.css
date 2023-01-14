@@ -7,23 +7,10 @@
   vertical-align: baseline;
   background: transparent;
 }
-body {
-  background-image: url('./resources/pics/wine-cellar.jpg');
-  background-repeat: no-repeat;
-  background-size:cover;
-  margin: 0 auto;
-  padding: 0 auto;
-  overflow: hidden;
-  height: 100vh;
-}
+
 #wrapper {
   max-width: 940px;
   margin: 0 auto;
   padding: 0 5%;
   clear: both;
-}
-
-Header {
-  background-color: purple;
-  height: 80px;
 }

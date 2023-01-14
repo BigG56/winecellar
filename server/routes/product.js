@@ -32,7 +32,7 @@ module.exports = (app) => {
     }
   });
 
-  router.get('/:productType/:productId', async (req, res, next) => {
+  router.get('/:productId/:productType', async (req, res, next) => {
     try {
       const { productId } = req.params;
 

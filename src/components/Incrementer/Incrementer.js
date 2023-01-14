@@ -9,7 +9,8 @@ const useStyles = makeStyles(() => ({
   root: {
     'incrementer-input': {
       width: '2em',
-      textAlign: 'center'
+      textAlign: 'center',
+      color: "gold"
     }
   }
 }));

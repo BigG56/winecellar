@@ -1,18 +1,15 @@
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 20px;
-  box-sizing: border-box;
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: purple;
+    border: 2px solid gold;
+    border-radius: 20px;
+    row-gap: 30px;
+    margin: 70px;
 }
-  
-.grid-item {
-  justify-self: center;
-  align-self: center;
-  text-align: center;
-}
-  
-h1 {
-  height: 500px;
-  align-items: center;
-  justify-content: center;
+
+.home-info, .home-info2 {
+    color: gold;
 }

@@ -1,16 +1,26 @@
-.product-card-container {
-    justify-self: center;
-    align-self: center;
-    text-align: center;
-  }
   
-  .product-card-img {
-    width: 100%
-  }
+#prod_img {
+  height: 450px;
+  width: 450px;
+  border: 2px solid gold; 
+}
   
-  .product-card-info-container {
-    display: flex;
-    flex-direction: row;
-    padding: 10px 40px;
-    justify-content: space-between;
-  }
+.product-card-info-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 40px;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  background-color: purple;
+}
+
+.product-card-info {
+  text-align: center;
+  color: gold;
+}
+
+#view {
+  color: purple;
+  background-color: gold;
+}

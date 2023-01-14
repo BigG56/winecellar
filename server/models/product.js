@@ -1,6 +1,14 @@
 const db = require('../db');
 
 module.exports = class ProductModel {
+  
+  constructor(data = {}) {
+    this.description = data.description;
+    this.name = data.name;
+    this.price = data.price || 0;
+    this.type = data.type;
+    this.img = data.img;
+  }
 
   // Products list
   async find(options = {}) {

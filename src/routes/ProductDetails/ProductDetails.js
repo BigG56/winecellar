@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
+import './ProductDetails.css';
 
 import Incrementer from '../../components/Incrementer/Incrementer';
 
@@ -21,8 +22,6 @@ function ProductDetails() {
   const products = useSelector(state => state.products);
   //const cart = useSelector(state => state.cart);
   const product = products[productId];
-
-  //const [ heroImg, setHeroImg ] = useState("https://elcopcbonline.com/photos/product/4/176/4.jpg")
 
   useEffect(() => {
     if (!products[productId]) {
@@ -48,21 +47,25 @@ function ProductDetails() {
   }
 
   return (
-    <section className="product-details-container">
+    <section style={{color: "yellow"}}className="product-details-container">
       <div className="product-info-container">
         { product &&
           <>
-            <Typography variant="h3">{product.name}</Typography>
-            <Typography variant="h6">{product.description}</Typography>
-            <Typography variant="h6">{product.price / 100}</Typography>
-            <Incrementer
-              onDecrement={handleDecrement}
-              onIncrement={handleIncrement}
-              value={quantity}
-            />
-            <Button type="contained" color="primary" onClick={handleAddToCart}>Add to Cart</Button>
+            <img id="prod_img" src={product.img} alt="product pic"/>
+            <div className="prod_details">
+              <Typography className="prod_name" variant="h3">{product.name}</Typography>
+              <Typography className="prod_description" variant="h6">{product.description}</Typography>
+              <Typography className="prod_price" variant="h6">{product.price}</Typography>
+              <Incrementer
+                onDecrement={handleDecrement}
+                onIncrement={handleIncrement}
+                value={quantity}
+               />
+               <Button id="add_cart" type="contained" color="primary" onClick={handleAddToCart}>Add to Cart</Button>
+            </div>
           </>
         }
+        <Button id="home" type="contained" color="primary" component={Link} to={`/`}>Home</Button>
       </div>
     </section>
   );

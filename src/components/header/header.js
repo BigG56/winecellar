@@ -11,9 +11,9 @@ const Header = () => {
   const { isAuthenticated } = useSelector(state => state.auth);
   const { items } = useSelector(state => state.cart);
   return (
-      <header>
+      <header className="head">
           <div className="header-bar">
-              <p className="title">The Wine Celar</p>
+              <p><a className="title" href='http://localhost:3008/home'>The WineCellar</a></p>
               <div className="button-container">
                 { !isAuthenticated &&
                   <Button color="inherit" component={Link} to="/login">Login</Button>

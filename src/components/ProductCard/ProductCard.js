@@ -10,17 +10,19 @@ function ProductCard(props) {
 
   return (
     <div className="grid-item">
-      <img className="product-card-img" alt="" />
-      <div className="product-card-info-container">
+      <div id="prod_container" className="product-card-info-container">
         <div className="product-card-info">
+          <img id="prod_img" src={data.img} alt="product pic"/>
           <p>{data.name}</p>
-          <p>{data.price / 100}</p>
+          <p>{data.price}</p>
+          <p>{data.type}</p>
         </div>
         <Button
+          id="view" 
           variant="outlined"
           color="primary"
           component={Link}
-          to={`/products/${data.id}`}
+          to={`/products/${data.id}/${data.type}/`}
         >View</Button>
       </div>
     </div>

@@ -1,33 +1,22 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+import './Home.css';
 
-import { loadProducts } from '../../store/products/Products.actions';
-
-import ProductCard from '../../components/ProductCard/ProductCard';
-
-import '../Login/Login';
 
 function Home() {
-  const dispatch = useDispatch();
-  const products = useSelector(state => state.products);
-
-  useEffect(() => {
-    async function load() {
-     await dispatch(loadProducts());
-    }
-    load();
-  }, [dispatch]);
-
-  return (
-    <section className="grid">
-      { products && Object.keys(products).length > 0 &&
-        Object.keys(products).map((key) => {
-          const product = products[key];
-          return <ProductCard data={product} key={product.id} />
-        })
-      }
-    </section>
-  );
+    return (
+        <div className="home-container">
+          <h1 className="title">Welcome To The WineCellar</h1>
+            <p className="home-info"> Here at The WineCellar we sell a mixture of red, white and rose wines, all for reasonable cheap prices!</p>
+            <p className="home-info2">Click here to see are range of wines!</p>
+            <Button 
+            id="view" 
+            variant="outlined"
+            color="primary"
+            component={Link}
+            to={`/products/`}>Products</Button>
+        </div>
+      );
 }
-
 export default Home;

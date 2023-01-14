@@ -1,12 +1,17 @@
 .app {
-  padding: 50px;
+  padding: 0 auto;
   width: 100%;
   min-height: 100vh;
   display: grid;
   justify-items: center;
   place-content: center;
   row-gap: 40px;
-  background: #e3e3e3;
+  background-image: url('../../resources/pics/wine-cellar.jpg');
+  background-repeat: no-repeat;
+  background-size:cover;
+  margin: 0 auto;
+  overflow: hidden;
+  height: 100vh;
 }
   
 .formComp {
@@ -22,10 +27,12 @@
   margin-bottom: 30px;
 }
   
-.baseFormHeading {
+.baseFormHeader {
   text-transform: capitalize;
   font-size: 2em;
   font-weight: normal;
+  background-color: purple;
+  color:gold;
 }
   
 .baseForm {
@@ -46,5 +53,5 @@
   
 .facebook-btn {
   background-color: #4267B2;
-  color: #FFFFFF
+  color: #4267B2;
 }

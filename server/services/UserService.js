@@ -42,6 +42,7 @@ module.exports = class UserService {
       return user;
 
     } catch(err) {
+      console.error(err)
       throw err;
     }
 

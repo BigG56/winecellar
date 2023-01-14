@@ -6,15 +6,15 @@ module.exports = class AuthService {
 
   async register(data) {
 
-    const { username } = data;
+    const { email } = data;
 
     try {
       // Check if user already exists
-      const user = await UserModelInstance.findByUsername(username);
+      const user = await UserModelInstance.findOneByEmail(email);
 
       // If user already exists, reject
       if (user) {
-        throw createError(409, 'Username already in use');
+        throw createError(409, "Email already in use");
       }
 
       // Otherwise, create new user record
@@ -32,7 +32,7 @@ module.exports = class AuthService {
 
     try {
       // Check if user exists
-      const user = await UserModelInstance.findByOneByEmail(email);
+      const user = await UserModelInstance.findOneByEmail(email);
       
       // If no user found, reject
       if (!user) {

@@ -69,14 +69,16 @@ const Login = () => {
               {
                 error && <div>{error}</div>
               }
-              <Button variant="contained" color="primary" type="submit" isLoading={isLoading}>Submit</Button>
-              <p>Forgotten your password?</p>
+              <Button variant="contained" style={{backgroundColor: "purple", color: "gold"}} type="submit" isLoading={isLoading}>Submit</Button>
+              <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+                <p>Forgotten your password?</p>
+              </div>
               <Divider />
               <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                 <p>Sign in with</p>
               </div>
               <div className="social-btn-container">
-                <Button variant="contained" className="facebook-btn" href="/home/auth/facebook">Facebook</Button>
+                <Button variant="contained" color="primary" className="facebook-btn" href="/home/auth/facebook">Facebook</Button>
                 <Button variant="contained" className="google-btn" href="/home/auth/google">Google</Button>
               </div>
             </Form>

@@ -15,7 +15,7 @@ export const fetchProducts = async () => {
 // API interface for loading a product by product ID
 export const fetchProduct = async (Type, Id) => {
   try {
-    const response = await API.get(`products/${Type}/${Id}`);
+    const response = await API.get(`products/${Id}/${Type}`);
     
     return response.data;
   } catch(err) {
