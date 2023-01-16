@@ -32,3 +32,13 @@ export const register = async (data) => {
       throw err.response.data;
     }
 }
+export const logout = async () => {
+  try {
+    const response = await API.post('auth/logout');
+
+    return response.data;
+
+  } catch(err) {
+    throw err.response.data;
+  }
+}
