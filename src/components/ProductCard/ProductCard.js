@@ -10,7 +10,7 @@ function ProductCard(props) {
 
   return (
     <div className="grid-item">
-      <div id="prod_container" className="product-card-info-container">
+      <div className="product-card-info-container">
         <div className="product-card-info">
           <img id="prod_img" src={data.img} alt="product pic"/>
           <p>{data.name}</p>

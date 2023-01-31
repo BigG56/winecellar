@@ -4,23 +4,23 @@ const pgp = require('pg-promise')({ capSQL: true });
 
 module.exports = class CartModel {
 
-  constructor(data = {}) {
-    this.created = data.created || moment.utc().toISOString();
+  constructor(created, user_id) {
+    this.created = created || moment.utc().toISOString();
     this.modified = moment.utc().toISOString();
-    this.user_id = data.user_id;
+    this.user_id = user_id || null;
   }
 
   //Creates a new cart for a user
   async create(user_id) {
     try {
-
-      const data = { user_id, ...this}
+      const statement = `INSERT INTO carts(user_id, modified, created)
+      VALUES($1, $2, $3) RETURNING *`;
 
       // Generate SQL statement
-      const statement = pgp.helpers.insert(data, null, 'carts') + 'RETURNING *';
-  
+      //const statement = pgp.helpers.insert(data, null, 'carts') + 'RETURNING *';
+      const values = [user_id, this.modified, this.created];
       // Execute SQL statment
-      const result = await db.query(statement);
+      const result = await db.query(statement, values);
 
       if (result.rows?.length) {
         return result.rows[0];
@@ -40,7 +40,7 @@ module.exports = class CartModel {
       // Generate SQL statement
       const statement = `SELECT *
                          FROM carts
-                         WHERE "user_id" = $1`;
+                         WHERE user_id = $1`;
       const values = [user_id];
   
       // Execute SQL statment
@@ -64,7 +64,7 @@ module.exports = class CartModel {
       // Generate SQL statement
       const statement = `SELECT *
                          FROM carts
-                         WHERE id" = $1`;
+                         WHERE id = $1`;
       const values = [id];
   
       // Execute SQL statment

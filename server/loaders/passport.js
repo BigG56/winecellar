@@ -4,6 +4,8 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const AuthService = require('../services/AuthService');
 const AuthServiceInstance = new AuthService();
+const UserService = require('../services/UserService');
+const UserServiceInstance = new UserService();
 
 const { FACEBOOK, GOOGLE } = require('../config');
 
@@ -15,23 +17,25 @@ module.exports = (app) => {
   
   // Set method to serialize data to store in cookie
   passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user);
   });
   
   // Set method to deserialize data stored in cookie
   passport.deserializeUser((id, done) => {
-    done(null, { id });
+    UserServiceInstance.getId(id, function(err, user) {
+      done(err, user);
+    });
   });
 
   // Configure local strategy for local login
-  passport.use(new LocalStrategy(
+  passport.use( new LocalStrategy(
     {
       usernameField: "email",
       passwordField: "password"
     },
-    async (username, password, done) => {
+    async (email, password, done) => {
       try {
-        const user = await AuthServiceInstance.login({ email: username, password });
+        const user = await AuthServiceInstance.login({ email, password });
         return done(null, user);
       } catch(err) {
         return done(err);

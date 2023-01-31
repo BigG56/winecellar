@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const CartService = require('../services/CartService');
+const passport = require('passport')
 
 const CartServiceInstance = new CartService();
 
@@ -8,11 +9,11 @@ module.exports = (app, passport) => {
 
   app.use('/home/carts', router);
 
-  router.get('/myCart', async (req, res, next) => {
+  router.get('/myCart' , passport.authenticate('local', {failureRedirect: '/login'}), async (req, res, next) => {
     try {
-      const { user_id } = req.params;
+      const { id } = req.user;
       
-      const response = await CartServiceInstance.loadCart(user_id);
+      const response = await CartServiceInstance.loadCart(id);
 
       res.status(200).send(response);
 
@@ -21,32 +22,33 @@ module.exports = (app, passport) => {
     }
   });
  
-  router.post('/myCart', async (req, res, next) => {
+  /*router.post('/myCart', passport.authenticate('local'), async (req, res, next) => {
     try {
-      const { user_id } = req.params;
+      const { id } = req.user.id;
     
-      const response = await CartServiceInstance.create({ user_id });
+      const response = await CartServiceInstance.createCart({user_id: id});
 
       res.status(200).send(response);
     } catch(err) {
       next(err);
     }
-  });
+  });*/
 
   router.post('/myCart/items', async (req, res, next) => {
     try {
-      const { id } = req.user;
-      const data = req.body;
+      const { id } = req.session.user;
+      console.log(id);
+      const { product, quantity } = req.body;
     
-      const response = await CartServiceInstance.addItem(id, data);
+      const response = await CartServiceInstance.addItem(id, product, quantity);
 
-      res.status(200).send(response);
+      res.status(200).json(response);
     } catch(err) {
       next(err);
     }
   });
 
-  router.put('/myCart/items/:cartItemId', async (req, res, next) => {
+  router.put('/myCart/items', async (req, res, next) => {
     try {
       const { cartItemId } = req.params;
       const data = req.body;
@@ -59,7 +61,7 @@ module.exports = (app, passport) => {
     }
   });
 
-  router.delete('/myCart/items/:cartItemId', async (req, res, next) => {
+  router.delete('/myCart/items/:productId', async (req, res, next) => {
     try {
       const { cartItemId } = req.params;
     

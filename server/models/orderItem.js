@@ -43,11 +43,11 @@ module.exports = class OrderItemModel {
       // Generate SQL statement
       const statement = `SELECT 
                             orderitems.qty,
-                            orderitems.id AS "cartItemId", 
-                            p.*
-                         FROM "orderitems" oi
-                         INNER JOIN products p ON p.id = oi."product_id"
-                         WHERE "order_id" = $1`
+                            orderitems.id AS cartItemId, 
+                            products.*
+                         FROM orderitems
+                         INNER JOIN products ON products.id = orderitems.product_id
+                         WHERE order_id = $1`
       const values = [orderId];
   
       // Execute SQL statment

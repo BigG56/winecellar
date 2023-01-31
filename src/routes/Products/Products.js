@@ -4,7 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 
 import { loadProducts } from '../../store/products/Products.actions';
-import ProductCard from '../../components/ProductCard/ProductCard';
+import ProductCard  from '../../components/ProductCard/ProductCard';
 import './Products.css'
 import '../Login/Login';
 
@@ -22,7 +22,7 @@ function Products() {
   
   return (
     <section className="grid">
-      <Carousel>
+      <Carousel showThumbs={false}>
         { Object.keys(products).map((key) => {
           const product = products[key];
           return <ProductCard data={product} key={key} />

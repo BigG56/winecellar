@@ -13,9 +13,9 @@ export const fetchCart = async () => {
 }
 
 // API interface for adding a product to a user's cart
-export const addToCart = async (productId, qty) => {
+export const addToCart = async (product, quantity) => {
   try {
-    const response = await API.post(`carts/myCart/items`, { productId, qty });
+    const response = await API.post(`carts/myCart/items`, { product, quantity});
 
     return response.data;
 
@@ -25,9 +25,9 @@ export const addToCart = async (productId, qty) => {
 }
 
 // API interface for removing a product from a user's cart
-export const removeFromCart = async (cartItemId) => {
+export const removeFromCart = async (productId) => {
   try {
-    const response = await API.delete(`carts/myCart/items/${cartItemId}`);
+    const response = await API.delete(`carts/myCart/items/${productId}`);
 
     return response.data;
 

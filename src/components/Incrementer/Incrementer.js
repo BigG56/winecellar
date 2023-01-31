@@ -10,7 +10,6 @@ const useStyles = makeStyles(() => ({
     'incrementer-input': {
       width: '2em',
       textAlign: 'center',
-      color: "gold"
     }
   }
 }));
@@ -20,7 +19,7 @@ const Incrementer = (props) => {
   const { value, onDecrement, onIncrement } = props;
 
   return (
-    <div>
+    <div style={{backgroundColor: "gold"}}>
       <IconButton aria-label="remove from shopping cart" onClick={onDecrement}>
         <RemoveIcon />
       </IconButton>

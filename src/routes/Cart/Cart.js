@@ -14,7 +14,7 @@ function Cart() {
 
   function calculateTotal() {
     return items.reduce((total, { price, qty }) => {
-      total += price * qty / 100
+      total += price * qty
       return total
     }, 0 )
   }
@@ -22,7 +22,7 @@ function Cart() {
   return (
     <section className="cart-details-container">
       <div className="cart-info-container">
-        <p style={{fontSize: 40, color: 'black'}}>Cart</p>
+        <p style={{fontSize: 40, color: 'gold'}}>Cart</p>
         <div className="cart-info-header">
           <div className="details">
             <Typography variant="h6">
@@ -40,13 +40,12 @@ function Cart() {
             </Typography>
           </div>
         </div>
-        {
-          items.map(item => {
-            return (
-              <CartItemCard {...item} />
-            )
+       {
+        Object.keys(items).map((key) => {
+          const item = items[key];
+          return <CartItemCard data={item} key={key} />
           })
-        }
+       }
       </div>
       <div className="cart-summary-container">
         <div className="cart-summary-container-inner">

@@ -1,7 +1,6 @@
 .cart-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    /* grid-gap: 20px; */
     box-sizing: border-box;
   }
   
@@ -18,12 +17,14 @@
     box-sizing: border-box;
     padding: 0 100px;
     flex: 1;
+    
   }
   
   .cart-info-container {
     grid-column: 1 / 5;
     grid-row: 1;
     display: grid;
+    background-color: purple;
   }
   
   .cart-summary-container {

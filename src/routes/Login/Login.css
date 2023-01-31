@@ -1,30 +1,15 @@
-.app {
-  padding: 0 auto;
-  width: 100%;
-  min-height: 100vh;
-  display: grid;
-  justify-items: center;
-  place-content: center;
-  row-gap: 40px;
-  background-image: url('../../resources/pics/wine-cellar.jpg');
-  background-repeat: no-repeat;
-  background-size:cover;
-  margin: 0 auto;
-  overflow: hidden;
-  height: 100vh;
-}
-  
-.formComp {
-  max-width: 20vw;
-  width: 20vw;
+.form {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: 10px ;
 }
   
 .formWrapper {
-  padding: 30px 20px;
+  padding: 10px 10px;
   background-color: white;
   box-shadow: 0 0 1.5rem rgba(105, 105, 105, 0.5);
   border-radius: 4px;
-  margin-bottom: 30px;
 }
   
 .baseFormHeader {
@@ -37,7 +22,7 @@
   
 .baseForm {
   display: grid;
-  row-gap: 30px;
+  row-gap: 20px;
 }
   
 .social-btn-container {
@@ -54,4 +39,11 @@
 .facebook-btn {
   background-color: #4267B2;
   color: #4267B2;
+}
+
+#reg_button {
+  border: 2px solid gold;
+  margin: auto;
+  background-color:  purple;
+  color: gold;
 }

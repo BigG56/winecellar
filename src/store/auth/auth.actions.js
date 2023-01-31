@@ -20,28 +20,34 @@ export const checkLoginStatus = createAsyncThunk(
 );
 
 export const loginUser = createAsyncThunk(
-  'auth/loginUser',
+  'auth/login',
   async (credentials, thunkAPI) => {
+    const { email, password } = credentials
     try {
-      const response = await login(credentials);
+      const response = await login({email, password});
+      const user = response;
+      if (user.email) {
+        return {
+          isAuthenticated: true,
+          isSignedIn: true
+        }
+      }
       return {
-        user: response,
-        isAuthenticated: true
+        user
       }
     } catch(err) {
-      console.error(err);
-      throw err;
+      return thunkAPI.rejectWithValue(err.response.data)
     }
   }
 );
 
 export const logoutUser = createAsyncThunk(
   'auth/logoutUser',
-  async (thunkAPI) => {
+  async (param, thunkAPI) => {
     try {
       const response = await logout();
       return {
-        user: response,
+        response,
         isAuthenticated: false
       }
     } catch(err) {
@@ -53,7 +59,7 @@ export const logoutUser = createAsyncThunk(
 
 
 export const registerUser = createAsyncThunk(
-  'auth/registerUser',
+  'auth/register',
   async (credentials, thunkAPI) => {
     try {
       await register(credentials);

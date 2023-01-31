@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { checkLoginStatus, loginUser } from '../auth/Auth.actions';
 
-const initialState = {}
+const initialState = {
+  user: {}
+}
 
 const userSlice = createSlice({
   name: 'user',

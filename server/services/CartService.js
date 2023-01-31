@@ -5,11 +5,9 @@ const CartItemModel = require('../models/cartItem');
 
 module.exports = class CartService {
 
-  async create(data) {
-    const { user_id } = data;
-
+  async createCart(user_id) {
     try {
-
+      if (!user_id) { throw new createError(406, "User required.")};
       // Instantiate new cart and save
       const Cart = new CartModel();
       const cart = await Cart.create(user_id);
@@ -24,10 +22,10 @@ module.exports = class CartService {
 
   };
 
-  async loadCart(userId) {
+  async loadCart(user_id) {
     try {
       // Load user cart based on ID
-      const cart = await CartModel.findOneByUser(userId);
+      const cart = await CartModel.findOneByUser(user_id);
 
       // Load cart items and add them to the cart record
       const items = await CartItemModel.find(cart.id);
@@ -40,13 +38,13 @@ module.exports = class CartService {
     }
   }
 
-  async addItem(userId, item) {
+  async addItem(id, product, quantity) {
     try {
       // Load user cart based on ID
-      const cart = await CartModel.findOneByUser(userId);
+      const cart = await CartModel.findOneByUser(id);
 
       // Create cart item
-      const cartItem = await CartItemModel.create({ cartId: cart.id, ...item });
+      const cartItem = await CartItemModel.create({cart_id: cart.id, product, quantity});
 
       return cartItem;
 
@@ -82,10 +80,10 @@ module.exports = class CartService {
     }
   }
 
-  async checkout(cartId, userId, paymentInfo) {
+  async checkout(cartId, user_id, paymentInfo) {
     try {
 
-      const stripe = require('stripe')('sk_test_FOY6txFJqPQvJJQxJ8jpeLYQ');
+      const stripe = require('stripe')(STRIPE_SECRET_KEY);
 
       // Load cart items
       const cartItems = await CartItemModel.find(cartId);
@@ -97,16 +95,16 @@ module.exports = class CartService {
       }, 0);
 
       // Generate initial order
-      const Order = new OrderModel({ total, userId });
+      const Order = new OrderModel({ total, user_id });
       Order.addItems(cartItems);
       await Order.create();
 
       // Make charge to payment method
       const charge = await stripe.charges.create({
         amount: total,
-        currency: 'usd',
+        currency: 'GBP',
         source: paymentInfo.id,
-        description: 'Codecademy Charge'
+        description: 'The WineCellar'
       });
 
       // On successful charge to payment method, update order status to COMPLETE

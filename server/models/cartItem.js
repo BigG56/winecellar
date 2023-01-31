@@ -3,15 +3,22 @@ const pgp = require('pg-promise')({ capSQL: true });
 
 module.exports = class CartItemModel {
 
+  constructor(qty, cart_id, product_id) {
+    this.qty = qty;
+    this.cart_id = cart_id;
+    this.product_id = product_id;
+  }
+
   // Creates a new cart item line
-  static async create(data) {
+  static async create(cart_id, product, quantity) {
     try {
 
       // Generate SQL statement
-      const statement = pgp.helpers.insert(data, null, 'cartitems') + 'RETURNING *';
- 
+      //const statement = pgp.helpers.insert(data, null, 'cartitems') + 'RETURNING *';
+      const statement = 'INSERT INTO cartitems (cart_id, product_id, qty) VALUES ($1, $2, $3)';
+      const values = [cart_id, product, quantity]
       // Execute SQL statment
-      const result = await db.query(statement);
+      const result = await db.query(statement, values);
 
       if (result.rows?.length) {
         return result.rows[0];
@@ -53,11 +60,11 @@ module.exports = class CartItemModel {
       // Generate SQL statement
       const statement = `SELECT 
                             cartitems.qty,
-                            cartitems.id AS "cartItemId", 
-                            p.*
-                         FROM "cartitems" ci
-                         INNER JOIN products p ON p.id = ci."productId"
-                         WHERE "cart_id" = $1`
+                            cartitems.id AS cartItemId, 
+                            products.*
+                         FROM cartitems
+                         INNER JOIN products ON products.id = cartitems.product_id
+                         WHERE cart_id = $1`
       const values = [cartId];
   
       // Execute SQL statment
@@ -80,7 +87,7 @@ module.exports = class CartItemModel {
 
       // Generate SQL statement
       const statement = `DELETE
-                         FROM "cartitems"
+                         FROM cartitems
                          WHERE id = $1
                          RETURNING *`;
       const values = [id];

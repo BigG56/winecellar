@@ -20,8 +20,8 @@ function ProductDetails() {
 
   const dispatch = useDispatch();
   const products = useSelector(state => state.products);
-  //const cart = useSelector(state => state.cart);
   const product = products[productId];
+  
 
   useEffect(() => {
     if (!products[productId]) {
@@ -43,7 +43,7 @@ function ProductDetails() {
   }
 
   async function handleAddToCart() {
-    await dispatch(addItem(product, quantity));
+    await dispatch(addItem(product, quantity)).unwrap();
   }
 
   return (
@@ -51,21 +51,21 @@ function ProductDetails() {
       <div className="product-info-container">
         { product &&
           <>
-            <img id="prod_img" src={product.img} alt="product pic"/>
+            <img id="prod_img" src={product?.img} alt="product pic"/>
             <div className="prod_details">
-              <Typography className="prod_name" variant="h3">{product.name}</Typography>
-              <Typography className="prod_description" variant="h6">{product.description}</Typography>
-              <Typography className="prod_price" variant="h6">{product.price}</Typography>
+              <Typography className="prod_name" variant="h3">{product?.name}</Typography>
+              <Typography className="prod_description" variant="h6">{product?.description}</Typography>
+              <Typography className="prod_price" variant="h6">{product?.price}</Typography>
               <Incrementer
                 onDecrement={handleDecrement}
                 onIncrement={handleIncrement}
                 value={quantity}
                />
                <Button id="add_cart" type="contained" color="primary" onClick={handleAddToCart}>Add to Cart</Button>
+               <Button id="back" type="contained" color="primary" component={Link} to={`/products`}>back</Button>
             </div>
           </>
         }
-        <Button id="home" type="contained" color="primary" component={Link} to={`/`}>Home</Button>
       </div>
     </section>
   );

@@ -74,7 +74,7 @@ module.exports = class OrderModel {
       // Generate SQL statement
       const statement = `SELECT *
                          FROM orders
-                         WHERE "user_id" = $1`;
+                         WHERE user_id = $1`;
       const values = [userId];
   
       // Execute SQL statment

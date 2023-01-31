@@ -34,7 +34,7 @@ export const register = async (data) => {
 }
 export const logout = async () => {
   try {
-    const response = await API.post('auth/logout');
+    const response = await API.get('auth/logout');
 
     return response.data;
 

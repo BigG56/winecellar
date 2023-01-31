@@ -2,23 +2,29 @@ const db = require('../db');
 const pgp = require('pg-promise')({ capSQL: true });
 
 module.exports = class UserModel {
+  constructor(email, password, firstname, lastname, username) {
+    this.email = email;
+    this.password = password;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.username = username;
+  }
 
   // Creates a new user
-  async create(data) {
+  async create(email, username, firstname, lastname, hashedPassword) {
+    
     try {
+      // Generate SQL statement
+      const statement = `INSERT INTO users(email, username, firstname, lastname, password)
+      VALUES($1, $2, $3, $4, $5)`;
+      const values = [ email, username, firstname, lastname, hashedPassword];
 
-      // Generate SQL statement - using helper for dynamic parameter injection
-      const statement = pgp.helpers.insert(data, null, 'users') + 'RETURNING *';
-  
       // Execute SQL statment
-      const result = await db.query(statement);
-
-      if (result.rows?.length) {
+      const result = await db.query(statement, values);
+      if(result.rows?.length) {
         return result.rows[0];
       }
-
-      return null;
-
+        return null;
     } catch(err) {
       throw new Error(err);
     }

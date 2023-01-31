@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Form, Formik } from 'formik';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/Button/Button';
 import Divider from '@material-ui/core/Divider';
 import TextField from '../../components/TextField/TextField';
-
 import './Login.css';
 
 import { loginUser } from '../../store/auth/Auth.actions';
@@ -13,18 +12,22 @@ import { loginUser } from '../../store/auth/Auth.actions';
 import * as Yup from 'yup';
 
 const Login = () => {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { error } = useSelector(state => state.auth);
   const [isLoading, setIsLoading] = useState(false);
+
+  const facebook = () => {
+    window.open("http://localhost:6000/home/auth/facbook", "_self")
+  }
 
   // Login handler
   const handleLogin = async (credentials) => {
     try {
       setIsLoading(true);
-      await dispatch(loginUser(credentials));
+      await dispatch(loginUser(credentials)).unwrap();
       setIsLoading(false);
-      history.push('/');
+      navigate('/');
     } catch(err) {
       setIsLoading(false);
     }
@@ -40,7 +43,7 @@ const Login = () => {
   })
 
   return (
-    <div className="app">
+    <div className="form">
       <div className="formComp">
         <div className="formWrapper">
           <Formik
@@ -49,7 +52,7 @@ const Login = () => {
             validateOnBlur
             onSubmit={async (values) => {
               const { email, password } = values;
-              await handleLogin({username: email, password});
+              await handleLogin({email, password});
             }}
           >
             <Form className="baseForm">
@@ -65,21 +68,23 @@ const Login = () => {
                 label="Password"
                 name="password"
                 id="password-input"
+                type="password"
               />
               {
                 error && <div>{error}</div>
               }
-              <Button variant="contained" style={{backgroundColor: "purple", color: "gold"}} type="submit" isLoading={isLoading}>Submit</Button>
-              <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-                <p>Forgotten your password?</p>
+              <Button variant="contained" style={{backgroundColor: "purple", color: "gold", border: "2px solid gold"}} type="submit" isLoading={isLoading}>Submit</Button>
+              <div style={{width: '100%', display: 'flex', justifyContent: 'center', flexDirection: 'column', textAlign: 'center', gap: '20px'}}>
+                <p><a href="/">Forgotten your password?</a></p>
+                <Button id="reg_button" component={Link} to='/auth/register'>Register</Button>
               </div>
               <Divider />
               <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                 <p>Sign in with</p>
               </div>
               <div className="social-btn-container">
-                <Button variant="contained" color="primary" className="facebook-btn" href="/home/auth/facebook">Facebook</Button>
-                <Button variant="contained" className="google-btn" href="/home/auth/google">Google</Button>
+                <Button variant="contained" color="primary" className="facebook-btn" onClick={facebook}>Facebook</Button>
+                <Button variant="contained" className="google-btn" href="/google">Google</Button>
               </div>
             </Form>
           </Formik>

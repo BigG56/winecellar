@@ -16,7 +16,7 @@ module.exports = async (app) => {
   await routeLoader(app, passport);
 
   // Load Swagger
-  await swaggerLoader(app);
+  await swaggerLoader(app, swagger);
   
   // Error Handler
   app.use((err, req, res, next) => {
@@ -27,6 +27,5 @@ module.exports = async (app) => {
       error: err
     });
     res.status(status);
-    res.render('error');
   });
 }
