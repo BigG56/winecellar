@@ -3,8 +3,12 @@ import { checkLoginStatus } from '../auth/Auth.actions';
 import { addItem, checkoutCart, loadCart, removeItem } from './Cart.actions';
 
 const initialState = {
-  items: [],
-  cart: {}
+  cart: {
+    id: 0,
+    user_id: 0,
+    items: [],
+    total: 0
+  }
 };
 
 const cartSlice = createSlice({
@@ -15,7 +19,7 @@ const cartSlice = createSlice({
     builder
       .addCase(addItem.fulfilled, (state, action) => {
         const { item } = action.payload;
-        state.items.push(item);
+        state.cart.items.push(item);
       })
       .addCase(checkLoginStatus.fulfilled, (state, action) => {
         const { cart } = action.payload;
@@ -26,7 +30,7 @@ const cartSlice = createSlice({
       })
       .addCase(loadCart.fulfilled, (state, action) => {
         const { cart } = action.payload;
-        state.cart = cart;
+        Object.assign(state.cart, cart);
       })
       .addCase(removeItem.fulfilled, (state, action) => {
         const { item } = action.payload;

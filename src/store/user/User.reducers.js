@@ -2,7 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 import { checkLoginStatus, loginUser } from '../auth/Auth.actions';
 
 const initialState = {
-  user: {}
+  user: {
+    id: 0,
+    username: '',
+    email: '',
+    firstname: '',
+    lastname: ''
+  }
 }
 
 const userSlice = createSlice({
@@ -14,12 +20,12 @@ const userSlice = createSlice({
       // Login success
       .addCase(loginUser.fulfilled, (state, action) => {
         const { user } = action.payload;
-        Object.assign(state, user);
+        Object.assign(state.user, user);
       })
       // Check login status success
       .addCase(checkLoginStatus.fulfilled, (state, action) => {
         const { user } = action.payload;
-        Object.assign(state, user);
+        Object.assign(state.user, user);
       })
   }
 });

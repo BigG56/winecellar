@@ -22,10 +22,10 @@ module.exports = class CartService {
 
   };
 
-  async loadCart(user_id) {
+  async loadCart(id) {
     try {
       // Load user cart based on ID
-      const cart = await CartModel.findOneByUser(user_id);
+      const cart = await CartModel.findOneByUser(id);
 
       // Load cart items and add them to the cart record
       const items = await CartItemModel.find(cart.id);
@@ -38,13 +38,13 @@ module.exports = class CartService {
     }
   }
 
-  async addItem(id, product, quantity) {
+  async addItem(userId, product, quantity) {
     try {
       // Load user cart based on ID
-      const cart = await CartModel.findOneByUser(id);
+      const cart = await CartModel.findOneByUser(userId);
 
       // Create cart item
-      const cartItem = await CartItemModel.create({cart_id: cart.id, product, quantity});
+      const cartItem = await CartItemModel.create({cart_id: cart, product, quantity});
 
       return cartItem;
 

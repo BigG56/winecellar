@@ -7,7 +7,7 @@ import './ProductDetails.css';
 
 import Incrementer from '../../components/Incrementer/Incrementer';
 
-import { addItem } from '../../store/cart/Cart.actions';
+import { addItem, loadCart } from '../../store/cart/Cart.actions';
 import { loadProduct } from '../../store/products/Products.actions';
 
 import '../Login/Login';
@@ -21,6 +21,10 @@ function ProductDetails() {
   const dispatch = useDispatch();
   const products = useSelector(state => state.products);
   const product = products[productId];
+  const {isSignedIn} = useSelector(state => state.auth);
+  const { user } = useSelector(state => state.user)
+  
+ 
   
 
   useEffect(() => {
@@ -43,7 +47,7 @@ function ProductDetails() {
   }
 
   async function handleAddToCart() {
-    await dispatch(addItem(product, quantity)).unwrap();
+    await dispatch(addItem(user, product, quantity)).unwrap();
   }
 
   return (
@@ -61,8 +65,15 @@ function ProductDetails() {
                 onIncrement={handleIncrement}
                 value={quantity}
                />
+              { isSignedIn &&
                <Button id="add_cart" type="contained" color="primary" onClick={handleAddToCart}>Add to Cart</Button>
-               <Button id="back" type="contained" color="primary" component={Link} to={`/products`}>back</Button>
+              }
+              { isSignedIn &&      
+               <Button id="back" type="contained" color="primary" component={Link} to={`/users/${user.id}/products`}>back</Button>
+              }
+              { !isSignedIn &&
+                <Button id="back" type="contained" color="primary" component={Link} to={`/products`}>back</Button>
+              }
             </div>
           </>
         }

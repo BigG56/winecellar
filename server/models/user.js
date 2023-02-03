@@ -103,14 +103,14 @@ module.exports = class UserModel {
   }
 
   // Find user by id
-  async findById(id) {
+  async findById(userId) {
     try {
 
       // Generate SQL statement
       const statement = `SELECT *
                          FROM users
                          WHERE id = $1`;
-      const values = [id];
+      const values = [userId];
   
       // Execute SQL statment
       const result = await db.query(statement, values);

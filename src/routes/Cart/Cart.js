@@ -10,10 +10,10 @@ import './Cart.css';
 
 function Cart() {
 
-  const { items } = useSelector(state => state.cart);
+  const { cart } = useSelector(state => state.cart);
 
   function calculateTotal() {
-    return items.reduce((total, { price, qty }) => {
+    return cart.items.reduce((total, { price, qty }) => {
       total += price * qty
       return total
     }, 0 )
@@ -41,8 +41,8 @@ function Cart() {
           </div>
         </div>
        {
-        Object.keys(items).map((key) => {
-          const item = items[key];
+        Object.keys(cart.items).map((key) => {
+          const item = cart.items[key];
           return <CartItemCard data={item} key={key} />
           })
        }

@@ -10,7 +10,8 @@ export const checkLoginStatus = createAsyncThunk(
       return {
         cart: response.cart,
         isAuthenticated: true,
-        user: response.user
+        user: response.user,
+        isSignedIn: true
       }
     } catch(err) {
       console.error(err);
@@ -22,18 +23,15 @@ export const checkLoginStatus = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   'auth/login',
   async (credentials, thunkAPI) => {
-    const { email, password } = credentials
+    const { email, password } = credentials;
     try {
       const response = await login({email, password});
-      const user = response;
-      if (user.email) {
+      if (response.email) {
         return {
+          user: response,
           isAuthenticated: true,
           isSignedIn: true
         }
-      }
-      return {
-        user
       }
     } catch(err) {
       return thunkAPI.rejectWithValue(err.response.data)
@@ -48,7 +46,8 @@ export const logoutUser = createAsyncThunk(
       const response = await logout();
       return {
         response,
-        isAuthenticated: false
+        isAuthenticated: false,
+        isSignedIn: false
       }
     } catch(err) {
       console.error(err);

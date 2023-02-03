@@ -8,6 +8,7 @@ import TextField from '../../components/TextField/TextField';
 import './Login.css';
 
 import { loginUser } from '../../store/auth/Auth.actions';
+//import { loadCart } from '../../store/cart/Cart.actions'
 
 import * as Yup from 'yup';
 
@@ -16,18 +17,19 @@ const Login = () => {
   const dispatch = useDispatch();
   const { error } = useSelector(state => state.auth);
   const [isLoading, setIsLoading] = useState(false);
+  const { user } = useSelector(state => state.user);
 
   const facebook = () => {
     window.open("http://localhost:6000/home/auth/facbook", "_self")
   }
-
+  const userHomeRoute = `/users/${user.id}`;
   // Login handler
   const handleLogin = async (credentials) => {
     try {
       setIsLoading(true);
       await dispatch(loginUser(credentials)).unwrap();
       setIsLoading(false);
-      navigate('/');
+      navigate(userHomeRoute);
     } catch(err) {
       setIsLoading(false);
     }

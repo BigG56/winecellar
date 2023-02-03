@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchUser, updateUser } from '../../api/user';
 
 export const fetchUsers = createAsyncThunk(
-    'users/:userName',
+    'users/:userId',
     async (userName, thunkAPI) => {
       try {
         const response = await fetchUser(userName);

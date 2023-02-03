@@ -1,10 +1,9 @@
-import React ,{ useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from './components/header/header.js';
 import { useSelector } from 'react-redux';
-//import { checkLoginStatus } from './store/auth/Auth.actions';
-import Products from './routes/Products/Products';
+import ProductsPage from './routes/Products/Products';
 import Login from './routes/Login/Login';
 import ProductDetails from './routes/ProductDetails/ProductDetails';
 import Register from './routes/Register/Register';
@@ -19,19 +18,10 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 
 
+
 function App() {
   const { isSignedIn } = useSelector(state => state.auth);
-  //const dispatch = useDispatch();
-
-  // Load user cart on entry to app
-  /*useEffect(() => {
-    async function isLoggedIn() {
-      await dispatch(checkLoginStatus());
-    }
-
-    isLoggedIn();
-  }, [dispatch]);*/
-
+  
   return (
     <div className="App" style={{flex: 1}}>
      <Router basename="/home" history={History}>
@@ -39,13 +29,16 @@ function App() {
         <Routes>
           {/* Public Routes */}
           <Route exact path="/" element={<Home />}/>
-          <Route path="/products" element={<Products />}/>
+          <Route path="/products" element={<ProductsPage />}/>
           <Route path="/auth/login" element={<Login />}/>
           <Route path="/auth/register" element={<Register/>}/>
           <Route path="/products/:productId/:productType" element={<ProductDetails />}/>
           {/* Private Routes */}
-          <Route path="/users/:userName" element={<Account/>}/>
-          <Route path="/carts/myCart" element={<ProtectedRoute isSignedIn={isSignedIn}><Cart/></ProtectedRoute>}/>
+          <Route path="/users/:userId" element={<ProtectedRoute isSignedIn={isSignedIn}><Home /></ProtectedRoute>}/>
+          <Route path="users/:userId/account" element={<ProtectedRoute isSignedIn={isSignedIn}><Account/></ProtectedRoute>}/>
+          <Route path="users/:userId/products" element={<ProtectedRoute isSignedIn={isSignedIn}><ProductsPage /></ProtectedRoute>}/>
+          <Route path="users/:userId/products/:productId/:productType" element={<ProductDetails />}/>
+          <Route path="users/:userId/carts/:cartId" element={<ProtectedRoute isSignedIn={isSignedIn}><Cart/></ProtectedRoute>}/>
           <Route path="/checkout" element={<ProtectedRoute isSignedIn={isSignedIn}><Checkout/></ProtectedRoute>}/>
           <Route path="/orders" element={<ProtectedRoute isSignedIn={isSignedIn}><Orders/></ProtectedRoute>}/>
           <Route path="/orders/:orderId" element={<ProtectedRoute isSignedIn={isSignedIn}><OrderDetails/></ProtectedRoute>}/>

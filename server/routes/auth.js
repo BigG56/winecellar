@@ -70,16 +70,16 @@ module.exports = (app, passport) => {
     });
   });
 
-  router.get('/logged_in', passport.authenticate('local', {failureRedirect: '/login'}), async (req, res, next) => {
+  router.get('/logged_in', async (req, res, next) => {
     try {
-      const { id } = req.user;
+      const { id } = req.params;
     
       const cart = await CartServiceInstance.loadCart(id);
       const user = await UserServiceInstance.getId({ id });
     
-      res.status(200).send({
+      res.status(200).json({
         cart,
-        loggedIn: true,
+        isSignedIn: true,
         user
       });
     } catch(err) {

@@ -1,5 +1,5 @@
 import './header.css';
-import React, { useState } from'react';
+import React from'react';
 import IconButton from '@material-ui/core/IconButton';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,24 +24,34 @@ const Header = () => {
   }
 
 
-  const {isSignedIn} = useSelector(state => state.auth);
-  const { items } = useSelector(state => state.cart);
+  const { isSignedIn } = useSelector(state => state.auth);
+  const { cart } = useSelector(state => state.cart);
+  const { user } = useSelector(state => state.user);
   return (
       <header className="head">
           <div className="header-bar">
-              <p><a className="title" href='http://localhost:3008/home'>The WineCellar</a></p>
+              <p className="title">The WineCellar</p>
               <div className="button-container">
                 { !isSignedIn &&
-                  <Button color="inherit" component={Link} to="/auth/login">Login</Button>
+                  <Button color="inherit" component={Link} to="/"><b>Home</b></Button>
+                }
+                {
+                  <Button color="inherit" component={Link} to={`/users/${user.id}`}><b>Home</b></Button>
+                }
+                { !isSignedIn &&
+                  <Button color="inherit" component={Link} to="/auth/login"><b>Login</b></Button>
                 }
                 { isSignedIn &&
-                  <Button  onClick={handleLogout} color="inherit">Logout</Button>
+                  <Button  onClick={handleLogout} color="inherit"><b>Logout</b></Button>
                 }
                 { isSignedIn &&
-                  <Button color="inherit" component={Link} to="/orders">Orders</Button>
+                  <Button color="inherit" component={Link} to="/orders"><b>Orders</b></Button>
                 }
-              <IconButton aria-label="access shopping cart" color="inherit" component={Link} to="/carts/myCart">
-                <Badge overlap="rectangular" badgeContent={items?.length || 0} color="secondary">
+                { isSignedIn &&
+                  <Button color="inherit" component={Link} to={`/users/${user.id}/account`}><b>Account</b></Button>
+                }
+              <IconButton aria-label="access shopping cart" color="inherit" component={Link} to={`users/${user.id}/carts/${cart.id}`}>
+                <Badge overlap="rectangular" badgeContent={cart.items?.length || 0} color="secondary">
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>

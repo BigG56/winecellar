@@ -46,11 +46,11 @@ module.exports = class UserService {
 
   };
 
-  async getId(id) {
+  async getId(userId) {
 
     try {
       // Check if user already exists
-      const user = await UserModelInstance.findById(id);
+      const user = await UserModelInstance.findById(userId);
 
       // If user doesn't exist, reject
       if (!user) {

@@ -34,14 +34,14 @@ module.exports = class CartModel {
   }
 
   // Load user cart by user id
-  static async findOneByUser(user_id) {
+  static async findOneByUser(userId) {
     try {
 
       // Generate SQL statement
       const statement = `SELECT *
                          FROM carts
                          WHERE user_id = $1`;
-      const values = [user_id];
+      const values = [userId];
   
       // Execute SQL statment
       const result = await db.query(statement, values);

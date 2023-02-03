@@ -1,9 +1,9 @@
 import API from './client';
 
 // API interface for loading the user's cart
-export const fetchCart = async () => {
+export const fetchCart = async (user) => {
   try {
-    const response = await API.get(`carts/myCart`);
+    const response = await API.get(`/users/:userId/carts/:cartId`, {user});
 
     return response.data;
 
@@ -13,9 +13,9 @@ export const fetchCart = async () => {
 }
 
 // API interface for adding a product to a user's cart
-export const addToCart = async (product, quantity) => {
+export const addToCart = async (user, product, quantity) => {
   try {
-    const response = await API.post(`carts/myCart/items`, { product, quantity});
+    const response = await API.post(`users/:userId/carts/:cartId`, {user, product, quantity});
 
     return response.data;
 

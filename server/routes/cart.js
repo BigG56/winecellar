@@ -7,15 +7,16 @@ const CartServiceInstance = new CartService();
 
 module.exports = (app, passport) => {
 
-  app.use('/home/carts', router);
+  app.use('/home/users/:userId/carts', router);
 
-  router.get('/myCart' , passport.authenticate('local', {failureRedirect: '/login'}), async (req, res, next) => {
+  router.get('/:cartId', async (req, res, next) => {
     try {
-      const { id } = req.user;
+      const user  = req.body;
+      console.log(user)
       
-      const response = await CartServiceInstance.loadCart(id);
+      const response = await CartServiceInstance.loadCart({id});
 
-      res.status(200).send(response);
+      res.status(200).json(response);
 
     } catch(err) {
       next(err);
@@ -34,13 +35,12 @@ module.exports = (app, passport) => {
     }
   });*/
 
-  router.post('/myCart/items', async (req, res, next) => {
+  router.post('/:cartId', async (req, res, next) => {
     try {
-      const { id } = req.session.user;
-      console.log(id);
-      const { product, quantity } = req.body;
+      const data = req.body;
+      console.log(data);
     
-      const response = await CartServiceInstance.addItem(id, product, quantity);
+      const response = await CartServiceInstance.addItem();
 
       res.status(200).json(response);
     } catch(err) {

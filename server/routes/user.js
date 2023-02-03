@@ -8,20 +8,20 @@ module.exports = (app) => {
 
   app.use('/home/users', router);
 
-  router.get('/:userName', async (req, res, next) => {
+  router.get('/:userId', async (req, res, next) => {
 
     try {
-      const { userName } = req.params;
+      const { userId } = req.params;
     
-      const response = await UserServiceInstance.getUsername({userName});
-      res.status(200).send(response);
+      const response = await UserServiceInstance.getId({userId});
+      res.status(200).json(response);
     } catch(err) {
       next(err);
     }
   });
 
 
-  router.get('/:userName/:userId', async (req, res, next) => {
+  /*router.get('/:userName/:userId', async (req, res, next) => {
 
     try {
       const { userId } = req.params;
@@ -31,7 +31,7 @@ module.exports = (app) => {
     } catch(err) {
       next(err);
     }
-  });
+  });*/
 
   router.put('/:username', async (req, res, next) => {
     try {

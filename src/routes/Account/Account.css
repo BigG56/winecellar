@@ -1,0 +1,21 @@
+.infoBox {
+    font-size: 40px;
+    color: gold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: solid 2px gold;
+    margin: 10px;
+    background-color: purple;
+}
+
+.accountBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    background-color: purple;
+    border: solid 2px gold;
+    margin: 10px;
+}
