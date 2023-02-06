@@ -11,11 +11,13 @@ import './CartItemCard.css';
 
 function CartItemCard(props) {
     
-  const { cartItemId, price, qty, name} = props;
+  const { cartitemid, price, qty, name, img} = props;
   const [ quantity, setQuantity ] = useState(qty);
+  const convertPrice = Number(price.replace(/[^0-9.-]+/g,""));
+  const total = convertPrice * qty;
 
   const dispatch = useDispatch();
-
+  
   function handleIncrement() {
     setQuantity(quantity + 1);
   }
@@ -26,21 +28,22 @@ function CartItemCard(props) {
     }
     setQuantity(quantity - 1);
   }
+  
 
   async function remove() {
-    await dispatch(removeItem(cartItemId));
+    await dispatch(removeItem(cartitemid));
   }
 
   return (
     <>
       <div className="cart-item-container">
         <div className="cart-item-details">
-          <img  alt="" style={{height: '100%', paddingRight: '10px'}} />
           <p>{name}</p>
-          <p>{price}</p>
+          <img alt="product" className="prodImg"src={img} />
         </div>
-        <div className=".cart-item-interact">
+        <div className=".cart-item-increment">
           <Incrementer
+            id="qty"
             onDecrement={handleDecrement}
             onIncrement={handleIncrement}
             value={quantity}
@@ -48,7 +51,7 @@ function CartItemCard(props) {
           <Typography onClick={remove}>Remove</Typography>
         </div>
         <div className=".cart-item-price">
-          <p>{`£${price * qty}`}</p>
+          <p id="total">{`£${total}`}</p>
         </div>
       </div>
       <Divider />

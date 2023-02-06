@@ -36,7 +36,7 @@ module.exports = class CartModel {
   // Load user cart by user id
   static async findOneByUser(userId) {
     try {
-
+      console.log(userId);
       // Generate SQL statement
       const statement = `SELECT *
                          FROM carts

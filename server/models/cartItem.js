@@ -10,13 +10,13 @@ module.exports = class CartItemModel {
   }
 
   // Creates a new cart item line
-  static async create(cart_id, product, quantity) {
+  static async create(cart, product, quantity) {
     try {
 
       // Generate SQL statement
       //const statement = pgp.helpers.insert(data, null, 'cartitems') + 'RETURNING *';
       const statement = 'INSERT INTO cartitems (cart_id, product_id, qty) VALUES ($1, $2, $3)';
-      const values = [cart_id, product, quantity]
+      const values = [cart, product, quantity]
       // Execute SQL statment
       const result = await db.query(statement, values);
 
@@ -82,7 +82,7 @@ module.exports = class CartItemModel {
   }
 
   // Deletes cart item line
-  static async delete(id) {
+  static async delete(cartitemid) {
     try {
 
       // Generate SQL statement
@@ -90,7 +90,7 @@ module.exports = class CartItemModel {
                          FROM cartitems
                          WHERE id = $1
                          RETURNING *`;
-      const values = [id];
+      const values = [cartitemid];
   
       // Execute SQL statment
       const result = await db.query(statement, values);

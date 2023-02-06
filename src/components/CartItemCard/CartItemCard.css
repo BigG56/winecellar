@@ -1,25 +1,23 @@
 .cart-item-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    height: 20vh;
-    padding: 10px 0
-  }
-  
-  .cart-item-details {
-    grid-column: 1 / 3;
-    height: 20vh;
     display: flex;
-    padding: 0 10px;
+    flex-direction: row;
+    justify-content:center;
+    gap: 60px;
+    color: gold;
+    border: 2px solid gold;
   }
   
-  .cart-item-interact {
-    grid-column: 3;
-    display: flex;
-    flex-direction: column;
+  .prodImg {
+    width:200px;
+    height: 200px;
+    padding: 10px;
   }
   
-  .cart-item-price {
-    grid-column: 4;
+  #total {
+    font-size: 30px;
+    border: 2px solid gold;
+    background-color: gold;
+    color: purple;
   }
   
   .cart-info-header {
@@ -29,12 +27,12 @@
   }
   
   .cart-info-header .details {
-    grid-column: 1 / 3;
+    grid-column: 1;
   }
   
   .cart-info-header .qty {
     grid-column: 3;
   }
   .cart-info-header .price {
-    grid-column: 4;
+    grid-column: 5;
   }

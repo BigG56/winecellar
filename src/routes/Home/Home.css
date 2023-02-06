@@ -13,3 +13,12 @@
 .home-info, .home-info2 {
     color: gold;
 }
+
+@media only screen and (max-width: 500px) {
+    .title {
+        margin-left: 10px;
+    }
+    .username {
+        margin-left: 80px;
+    }
+  }

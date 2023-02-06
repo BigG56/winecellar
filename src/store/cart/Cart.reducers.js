@@ -6,8 +6,7 @@ const initialState = {
   cart: {
     id: 0,
     user_id: 0,
-    items: [],
-    total: 0
+    items: []
   }
 };
 
@@ -23,7 +22,7 @@ const cartSlice = createSlice({
       })
       .addCase(checkLoginStatus.fulfilled, (state, action) => {
         const { cart } = action.payload;
-        state.cart = cart;
+        Object.assign(state.cart, cart);
       })
       .addCase(checkoutCart.fulfilled, (state, action) => {
         
@@ -34,7 +33,7 @@ const cartSlice = createSlice({
       })
       .addCase(removeItem.fulfilled, (state, action) => {
         const { item } = action.payload;
-        state.items = state.items.filter((product) => product.cartItemId !== item);
+        state.cart.items = state.cart.items.filter((product) => product.cartitemid !== item);
       })
   }
 });

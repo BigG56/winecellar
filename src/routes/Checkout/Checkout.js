@@ -9,7 +9,7 @@ const stripe = loadStripe("pk_test_1b7TDT5I1aLlj6UAhEejbqrh");
 function Checkout() {
   return (
     <Elements stripe={stripe}>
-      <div style={{display: 'flex', backgroundColor: 'blue'}}>
+      <div style={{display: 'flex', backgroundColor: 'purple', border:"2px solid gold", marginTop:"30px"}}>
         <CheckoutForm />
       </div>
     </Elements>

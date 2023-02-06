@@ -7,7 +7,7 @@ import './ProductDetails.css';
 
 import Incrementer from '../../components/Incrementer/Incrementer';
 
-import { addItem, loadCart } from '../../store/cart/Cart.actions';
+import { addItem } from '../../store/cart/Cart.actions';
 import { loadProduct } from '../../store/products/Products.actions';
 
 import '../Login/Login';
@@ -23,6 +23,8 @@ function ProductDetails() {
   const product = products[productId];
   const {isSignedIn} = useSelector(state => state.auth);
   const { user } = useSelector(state => state.user)
+  const { cart } = useSelector(state => state.cart);
+  const cartId = cart.id;
   
  
   
@@ -46,8 +48,14 @@ function ProductDetails() {
     setQuantity(quantity - 1);
   }
 
+  const Item = {
+    cartId: cartId,
+    product: product,
+    qty: quantity
+  }
+
   async function handleAddToCart() {
-    await dispatch(addItem(user, product, quantity)).unwrap();
+    await dispatch(addItem(Item));
   }
 
   return (
@@ -59,14 +67,16 @@ function ProductDetails() {
             <div className="prod_details">
               <Typography className="prod_name" variant="h3">{product?.name}</Typography>
               <Typography className="prod_description" variant="h6">{product?.description}</Typography>
-              <Typography className="prod_price" variant="h6">{product?.price}</Typography>
-              <Incrementer
-                onDecrement={handleDecrement}
-                onIncrement={handleIncrement}
-                value={quantity}
-               />
+              <Typography className="prod_price" variant="h3"><b>{product?.price}</b></Typography>
               { isSignedIn &&
-               <Button id="add_cart" type="contained" color="primary" onClick={handleAddToCart}>Add to Cart</Button>
+                <div className="cartButtons">
+                  <Incrementer
+                    onDecrement={handleDecrement}
+                    onIncrement={handleIncrement}
+                    value={quantity}
+                   />
+                  <Button id="add_cart" type="contained" color="primary" onClick={handleAddToCart}>Add to Cart</Button>
+                </div>
               }
               { isSignedIn &&      
                <Button id="back" type="contained" color="primary" component={Link} to={`/users/${user.id}/products`}>back</Button>

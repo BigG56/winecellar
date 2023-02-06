@@ -11,9 +11,9 @@ export const login = async (credentials) => {
     }
 }
 
-export const isLoggedIn = async () => {
+export const isLoggedIn = async (userId) => {
   try {
-    const response = await API.get('auth/logged_in');
+    const response = await API.get(`users/${userId}/is_loggedin`);
 
     return response.data;
 

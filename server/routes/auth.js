@@ -70,7 +70,7 @@ module.exports = (app, passport) => {
     });
   });
 
-  router.get('/logged_in', async (req, res, next) => {
+  /*router.get('/logged_in', async (req, res, next) => {
     try {
       const { id } = req.params;
     
@@ -85,7 +85,7 @@ module.exports = (app, passport) => {
     } catch(err) {
       next(err);
     }
-  });
+  });*/
 
   // Google Login Endpoint
   router.get('/google', passport.authenticate('google', { scope: ["profile"] } ));

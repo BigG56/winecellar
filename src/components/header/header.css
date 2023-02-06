@@ -22,4 +22,16 @@ header {
 .head {
     background-color: purple;
     height: 80px;
-  }
+}
+
+@media only screen and (max-width: 639px) {
+    .header-bar {
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .head {
+        height: 120px;
+    }
+}

@@ -3,15 +3,14 @@ import { isLoggedIn, login, register, logout } from '../../api/auth';
 
 export const checkLoginStatus = createAsyncThunk(
   'auth/checkLogin',
-  async (param, thunkAPI) => {
+  async (userId, thunkAPI) => {
     try {
-      const response = await isLoggedIn();
+      const response = await isLoggedIn(userId);
 
       return {
         cart: response.cart,
-        isAuthenticated: true,
-        user: response.user,
-        isSignedIn: true
+        isSignedIn: true,
+        user: response.user
       }
     } catch(err) {
       console.error(err);

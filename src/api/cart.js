@@ -1,9 +1,9 @@
 import API from './client';
 
 // API interface for loading the user's cart
-export const fetchCart = async (user) => {
+export const fetchCart = async (userId) => {
   try {
-    const response = await API.get(`/users/:userId/carts/:cartId`, {user});
+    const response = await API.get(`/users/${userId}/carts/:cartId`);
 
     return response.data;
 
@@ -13,9 +13,9 @@ export const fetchCart = async (user) => {
 }
 
 // API interface for adding a product to a user's cart
-export const addToCart = async (user, product, quantity) => {
+export const addToCart = async (Item) => {
   try {
-    const response = await API.post(`users/:userId/carts/:cartId`, {user, product, quantity});
+    const response = await API.post(`users/:userId/carts/:cartId`,Item);
 
     return response.data;
 
@@ -25,9 +25,9 @@ export const addToCart = async (user, product, quantity) => {
 }
 
 // API interface for removing a product from a user's cart
-export const removeFromCart = async (productId) => {
+export const removeFromCart = async (cartitemid) => {
   try {
-    const response = await API.delete(`carts/myCart/items/${productId}`);
+    const response = await API.delete(`users/:userId/carts/:cartId/items/${cartitemid}`);
 
     return response.data;
 

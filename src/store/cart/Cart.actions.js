@@ -3,13 +3,14 @@ import { addToCart, checkout, fetchCart, removeFromCart } from '../../api/cart';
 
 export const addItem = createAsyncThunk(
   'carts/:cartId/items',
-  async ({ user, product, quantity } , thunkAPI) => {
+  async (Item, thunkAPI) => {
+    const { cartId, product, qty} = Item;
     try {
-      const response = await addToCart({user, product, quantity});
+      const response = await addToCart({cartId, product, qty});
       const item = {
         ...product,
-        cartItemId: response.id,
-        quantity
+        cartitemid: response,
+        qty
       };
       return { item } ;
     } catch(err) {
@@ -36,10 +37,9 @@ export const checkoutCart = createAsyncThunk(
 
 export const loadCart = createAsyncThunk(
   '/:userId/carts/:cartId',
-  async (user, thunkAPI) => {
-    const { id } = user;
+  async (userId, thunkAPI) => {
     try {
-      const response = await fetchCart(id);
+      const response = await fetchCart(userId);
       return {
         cart: response
       }
@@ -51,12 +51,12 @@ export const loadCart = createAsyncThunk(
 );
 
 export const removeItem = createAsyncThunk(
-  'carts/myCart/removeItem',
-  async (cartItemId, thunkAPI) => {
+  'carts/:cartId/removeItem',
+  async (cartitemid, thunkAPI) => {
     try {
-      await removeFromCart(cartItemId);
+      await removeFromCart(cartitemid);
       return {
-        item: cartItemId
+        item: cartitemid
       }
     } catch(err) {
         console.error(err);

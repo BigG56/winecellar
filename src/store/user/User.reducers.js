@@ -3,7 +3,7 @@ import { checkLoginStatus, loginUser } from '../auth/Auth.actions';
 
 const initialState = {
   user: {
-    id: 0,
+    userId: 0,
     username: '',
     email: '',
     firstname: '',

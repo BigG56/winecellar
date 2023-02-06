@@ -21,7 +21,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
   const { isSignedIn } = useSelector(state => state.auth);
-  
+
   return (
     <div className="App" style={{flex: 1}}>
      <Router basename="/home" history={History}>
@@ -30,14 +30,14 @@ function App() {
           {/* Public Routes */}
           <Route exact path="/" element={<Home />}/>
           <Route path="/products" element={<ProductsPage />}/>
+          <Route path="/products/:productId/:productType" element={<ProductDetails />}/>
           <Route path="/auth/login" element={<Login />}/>
           <Route path="/auth/register" element={<Register/>}/>
-          <Route path="/products/:productId/:productType" element={<ProductDetails />}/>
           {/* Private Routes */}
-          <Route path="/users/:userId" element={<ProtectedRoute isSignedIn={isSignedIn}><Home /></ProtectedRoute>}/>
+          <Route path='users/:userId' element={<ProtectedRoute isSignedIn={isSignedIn}><Home /></ProtectedRoute>}/>
           <Route path="users/:userId/account" element={<ProtectedRoute isSignedIn={isSignedIn}><Account/></ProtectedRoute>}/>
-          <Route path="users/:userId/products" element={<ProtectedRoute isSignedIn={isSignedIn}><ProductsPage /></ProtectedRoute>}/>
-          <Route path="users/:userId/products/:productId/:productType" element={<ProductDetails />}/>
+          <Route path='users/:userId/products' element={<ProtectedRoute isSignedIn={isSignedIn}><ProductsPage /></ProtectedRoute>}/>
+          <Route path="users/:userId/products/:productId/:productType" element={<ProtectedRoute isSignedIn={isSignedIn}><ProductDetails /></ProtectedRoute>}/>          
           <Route path="users/:userId/carts/:cartId" element={<ProtectedRoute isSignedIn={isSignedIn}><Cart/></ProtectedRoute>}/>
           <Route path="/checkout" element={<ProtectedRoute isSignedIn={isSignedIn}><Checkout/></ProtectedRoute>}/>
           <Route path="/orders" element={<ProtectedRoute isSignedIn={isSignedIn}><Orders/></ProtectedRoute>}/>

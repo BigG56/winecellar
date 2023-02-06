@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const UserService = require('../services/UserService');
-
+const CartService = require('../services/CartService');
+const CartServiceInstance = new CartService();
 const UserServiceInstance = new UserService();
 
 module.exports = (app) => {
@@ -13,8 +14,26 @@ module.exports = (app) => {
     try {
       const { userId } = req.params;
     
-      const response = await UserServiceInstance.getId({userId});
+      const response = await UserServiceInstance.getId(userId);
       res.status(200).json(response);
+    } catch(err) {
+      next(err);
+    }
+  });
+
+  router.get('/:userId/is_loggedin', async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      console.log(userId);
+    
+      const cart = await CartServiceInstance.loadCart(userId);
+      const user = await UserServiceInstance.getId(userId);
+      console.log(cart);
+    
+      res.status(200).json({
+        cart,
+        user
+      });
     } catch(err) {
       next(err);
     }

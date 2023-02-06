@@ -11,8 +11,8 @@ module.exports = (app, passport) => {
 
   router.get('/:cartId', async (req, res, next) => {
     try {
-      const user  = req.body;
-      console.log(user)
+      const {id}  = req.params;
+      console.log(id)
       
       const response = await CartServiceInstance.loadCart({id});
 
@@ -37,10 +37,12 @@ module.exports = (app, passport) => {
 
   router.post('/:cartId', async (req, res, next) => {
     try {
-      const data = req.body;
-      console.log(data);
+      const {cartId, product, qty} = req.body;
+      console.log(cartId);
+      console.log(product.id);
+      console.log(qty);
     
-      const response = await CartServiceInstance.addItem();
+      const response = await CartServiceInstance.addItem(cartId, product.id, qty);
 
       res.status(200).json(response);
     } catch(err) {
@@ -61,11 +63,12 @@ module.exports = (app, passport) => {
     }
   });
 
-  router.delete('/myCart/items/:productId', async (req, res, next) => {
+  router.delete('/:cartId/items/:cartitemid', async (req, res, next) => {
     try {
-      const { cartItemId } = req.params;
+      const { cartitemid } = req.params;
+      console.log(cartitemid)
     
-      const response = await CartServiceInstance.removeItem(cartItemId);
+      const response = await CartServiceInstance.removeItem(cartitemid);
 
       res.status(200).send(response);
     } catch(err) {
@@ -73,7 +76,7 @@ module.exports = (app, passport) => {
     }
   });
 
-  router.post('/myCart/checkout', async (req, res, next) => {
+  router.post('/:cartId/checkout', async (req, res, next) => {
     try {
       const { id } = req.user;
 

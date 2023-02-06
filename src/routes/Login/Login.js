@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Formik } from 'formik';
-import { useNavigate, Link } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/Button/Button';
 import Divider from '@material-ui/core/Divider';
@@ -13,23 +13,19 @@ import { loginUser } from '../../store/auth/Auth.actions';
 import * as Yup from 'yup';
 
 const Login = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { error } = useSelector(state => state.auth);
   const [isLoading, setIsLoading] = useState(false);
+  const { isSignedIn } = useSelector(state => state.auth);
   const { user } = useSelector(state => state.user);
 
-  const facebook = () => {
-    window.open("http://localhost:6000/home/auth/facbook", "_self")
-  }
-  const userHomeRoute = `/users/${user.id}`;
+  const userHomeRoute = `/users/`;
   // Login handler
   const handleLogin = async (credentials) => {
     try {
       setIsLoading(true);
       await dispatch(loginUser(credentials)).unwrap();
       setIsLoading(false);
-      navigate(userHomeRoute);
     } catch(err) {
       setIsLoading(false);
     }
@@ -45,6 +41,8 @@ const Login = () => {
   })
 
   return (
+    <>
+    { !isSignedIn &&    
     <div className="form">
       <div className="formComp">
         <div className="formWrapper">
@@ -85,7 +83,7 @@ const Login = () => {
                 <p>Sign in with</p>
               </div>
               <div className="social-btn-container">
-                <Button variant="contained" color="primary" className="facebook-btn" onClick={facebook}>Facebook</Button>
+                <Button variant="contained" color="primary" className="facebook-btn">Facebook</Button>
                 <Button variant="contained" className="google-btn" href="/google">Google</Button>
               </div>
             </Form>
@@ -93,6 +91,11 @@ const Login = () => {
         </div>
       </div>
     </div>
+    }
+    { isSignedIn &&
+      <Navigate to={`/users/${user.id}`}/>
+    }
+    </>
   );
 }
 

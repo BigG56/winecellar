@@ -35,7 +35,7 @@ const Header = () => {
                 { !isSignedIn &&
                   <Button color="inherit" component={Link} to="/"><b>Home</b></Button>
                 }
-                {
+                { isSignedIn &&
                   <Button color="inherit" component={Link} to={`/users/${user.id}`}><b>Home</b></Button>
                 }
                 { !isSignedIn &&

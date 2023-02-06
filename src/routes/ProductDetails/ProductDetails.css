@@ -13,10 +13,22 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  gap: 20px;
 }
 
 .prod_name {
   text-decoration: underline;
+}
+
+.prod_price {
+  border:2px solid gold;
+  border-radius: 100px;
+}
+
+.prod_description {
+  border: 2px solid gold;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #back {
@@ -29,4 +41,12 @@
   border: 2px solid gold;
   color: purple;
   background-color: gold;
+  margin-top: 31px;
+  height: 155px;
+}
+
+.cartButtons {
+  display: flex;
+  flex-direction: row;
+  margin-top: -30px;
 }
