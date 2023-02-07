@@ -37,15 +37,15 @@ function CheckoutForm() {
 
   return (
     <div style={{ padding: "3rem", width: '100%'}}>
-      <div style={{ maxWidth: "500px", margin: "0 auto" }}>
-        <form style={{ display: "block", width: "100%" }}>
+      <div style={{ maxWidth: "500px", margin: "0 auto"}}>
+        <form style={{ display: "block", width: "100%"}}>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <CardElement
               className="card"
               options={{
                 style: {
                   base: {
-                    backgroundColor: "white"
+                    backgroundColor: "gold"
                   } 
                 }
               }}

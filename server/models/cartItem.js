@@ -32,15 +32,17 @@ module.exports = class CartItemModel {
   }
 
   // Updates cart items
-  static async update(id, data) {
+  static async update(qty, cartitemid) {
     try {
 
       // Generate SQL statement
-      const condition = pgp.as.format('WHERE id = ${id} RETURNING *', { id });
-      const statement = pgp.helpers.update(data, null, 'cartitems') + condition;
+      const statement = `UPDATE cartitems 
+                         SET qty = $1
+                         WHERE id = $2`;
+      const values = [qty, cartitemid]
   
       // Execute SQL statment
-      const result = await db.query(statement);
+      const result = await db.query(statement, values);
 
       if (result.rows?.length) {
         return result.rows[0];

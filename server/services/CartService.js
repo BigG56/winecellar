@@ -68,10 +68,10 @@ module.exports = class CartService {
     }
   }
 
-  async updateItem(cartItemId, data) {
+  async updateItem(qty, cartitemid) {
     try {
       // Remove cart item by line ID
-      const cartItem = await CartItemModel.update(cartItemId, data);
+      const cartItem = await CartItemModel.update(qty, cartitemid);
 
       return cartItem;
 

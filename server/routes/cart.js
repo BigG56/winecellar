@@ -50,14 +50,15 @@ module.exports = (app, passport) => {
     }
   });
 
-  router.put('/myCart/items', async (req, res, next) => {
+  router.put('/:cartId/items/:cartitemid', async (req, res, next) => {
     try {
-      const { cartItemId } = req.params;
-      const data = req.body;
+      const {qty, cartitemid} = req.body;
+      console.log(cartitemid);
+      console.log(qty);
     
-      const response = await CartServiceInstance.updateItem(cartItemId, data);
+      const response = await CartServiceInstance.updateItem(qty, cartitemid);
 
-      res.status(200).send(response);
+      res.status(200).json(response);
     } catch(err) {
       next(err);
     }
@@ -70,7 +71,7 @@ module.exports = (app, passport) => {
     
       const response = await CartServiceInstance.removeItem(cartitemid);
 
-      res.status(200).send(response);
+      res.status(200).json(response);
     } catch(err) {
       next(err);
     }
@@ -78,13 +79,11 @@ module.exports = (app, passport) => {
 
   router.post('/:cartId/checkout', async (req, res, next) => {
     try {
-      const { id } = req.user;
+      const { userId, cartId, paymentInfo } = req.body; 
 
-      const { cartId, paymentInfo } = req.body; 
+      const response = await CartServiceInstance.checkout(cartId, userId, paymentInfo);
 
-      const response = await CartServiceInstance.checkout(cartId, id, paymentInfo);
-
-      res.status(200).send(response);
+      res.status(200).json(response);
     } catch(err) {
       next(err);
     }

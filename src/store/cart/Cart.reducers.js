@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { checkLoginStatus } from '../auth/Auth.actions';
-import { addItem, checkoutCart, loadCart, removeItem } from './Cart.actions';
+import { addItem, checkoutCart, loadCart, removeItem, updateItem } from './Cart.actions';
+import { StarRateTwoTone } from '@material-ui/icons';
 
 const initialState = {
   cart: {
@@ -34,6 +35,12 @@ const cartSlice = createSlice({
       .addCase(removeItem.fulfilled, (state, action) => {
         const { item } = action.payload;
         state.cart.items = state.cart.items.filter((product) => product.cartitemid !== item);
+      })
+      .addCase(updateItem.fulfilled, (state, action) => {
+        const { item, qty } = action.payload;
+        const index = state.cart.items.findIndex(cartitemid => cartitemid !== item)
+        const newItem = [...state.cart.items]
+        newItem[index].qty = qty;
       })
   }
 });

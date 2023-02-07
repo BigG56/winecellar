@@ -1,5 +1,5 @@
 .card {
-    background-color: white;
+    background-color: gold;
     padding: 10px 20px 11px;
     border-radius: 5px;
     width: 100%;
@@ -11,10 +11,10 @@
     padding: 0.7rem 2rem;
     width: 100%;
     margin: 1rem 0;
-    color: white;
+    color: purple;
     font-weight: bold;
     font-size: medium;
-    background-color: #556cd6;
+    background-color: gold;
     border: 0;
     border-radius: 5px;
     box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);

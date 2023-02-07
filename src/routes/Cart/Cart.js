@@ -16,7 +16,7 @@ function Cart() {
     return cart.items.reduce((total, { price, qty }) => {
       const convertPrice = Number(price.replace(/[^0-9.-]+/g,""));
       total += convertPrice * qty
-      return total
+      return Math.round(total * 100) / 100    
     }, 0 )
   }
 
@@ -27,7 +27,7 @@ function Cart() {
         <div className="cart-info-header">
           <div className="details">
             <Typography variant="h6">
-              Product Details
+              Product
             </Typography>
           </div>
           <div className="qty">
@@ -57,12 +57,12 @@ function Cart() {
               Order Summary
             </Typography>
             <div className="order-line-item">
-              <Typography>Subtotal</Typography>
-              <Typography>£{calculateTotal()}</Typography>
+              <p><b>Subtotal</b></p>
+              <p>£{calculateTotal()}</p>
             </div>
             <div className="order-line-item">
-              <Typography>Shipping</Typography>
-              <Typography>FREE</Typography>
+              <p><b>Shipping</b></p>
+              <p>FREE</p>
             </div>
             <Divider className="checkout-divider"/>
             <Button

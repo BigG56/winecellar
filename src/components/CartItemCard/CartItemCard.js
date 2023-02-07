@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import Incrementer from '../Incrementer/Incrementer';
 
-import { removeItem } from '../../store/cart/Cart.actions';
+import { removeItem, updateItem } from '../../store/cart/Cart.actions';
 
 import './CartItemCard.css';
 
@@ -28,10 +28,18 @@ function CartItemCard(props) {
     }
     setQuantity(quantity - 1);
   }
+
+  const updatedItem = {
+    cartitemid: cartitemid,
+    qty: quantity
+  }
   
 
   async function remove() {
     await dispatch(removeItem(cartitemid));
+  }
+  async function update() {
+    await dispatch(updateItem(updatedItem))
   }
 
   return (
@@ -48,7 +56,8 @@ function CartItemCard(props) {
             onIncrement={handleIncrement}
             value={quantity}
           />
-          <Typography onClick={remove}>Remove</Typography>
+          <p style={{border: "2px solid gold", color: "gold", backgroundColor: "purple", marginBottom: "5px"}} onClick={update}>Update</p>
+          <p style={{border: "2px solid gold", backgroundColor: "red", color:"purple"}}onClick={remove}>Remove</p>
         </div>
         <div className=".cart-item-price">
           <p id="total">{`£${total}`}</p>

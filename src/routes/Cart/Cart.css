@@ -12,32 +12,34 @@
   margin-top: 10px;
   background-color: purple;
   height: 600px;
-  width: 600px;
-  overflow: scroll;
-  overflow-y: auto;
+  width: 700px;
+  overflow-y:auto ;
   overflow-x: auto;
 }
-@media only screen and (max-width: 910px) {
+
+.cart-summary-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 2px purple;
+  font-size:13px;
+}
+
+@media only screen and (min-width: 800px) {
   .cart-details-container {
-    flex-direction: column;
+    flex-direction: row;
   }
-  .cart-info-container {
-    flex-shrink: 3;
+  .cart-summary-container-inner {
+    font-size: 16px;
   }
 }
-  
-  .cart-summary-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
   
   .cart-summary-container-inner {
     background-color: gold;
     display: flex;
-    margin-left: 10px;
     flex-direction: column;
     align-items: center;
+    color:purple;
   }
   
   .cart-summary-container-inner .checkout-btn {
@@ -67,4 +69,5 @@
 
   .details, .qty, .price {
     color: gold;
+    text-decoration: underline;
   }

@@ -42,11 +42,19 @@
   color: purple;
   background-color: gold;
   margin-top: 31px;
-  height: 155px;
+  height: 40px;
+  width:100px;
 }
 
 .cartButtons {
   display: flex;
-  flex-direction: row;
-  margin-top: -30px;
+  flex-direction: column;
+  margin:-20px;
+}
+
+@media only screen and (max-width: 430px) {
+  #prod_img {
+    width:300px;
+    height:300px;
+  }
 }

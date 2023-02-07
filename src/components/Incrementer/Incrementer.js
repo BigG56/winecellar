@@ -19,7 +19,7 @@ const Incrementer = (props) => {
   const { value, onDecrement, onIncrement } = props;
 
   return (
-    <div style={{backgroundColor: "gold", width:"150px", marginTop: "31px"}}>
+    <div style={{backgroundColor: "gold", width:"100px", marginTop: "10px"}}>
       <IconButton aria-label="remove from shopping cart" onClick={onDecrement}>
         <RemoveIcon />
       </IconButton>
