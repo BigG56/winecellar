@@ -6,14 +6,16 @@ const OrderServiceInstance = new OrderService();
 
 module.exports = (app) => {
 
-  app.use('/home/orders', router);
+  app.use('/home/users', router);
 
-  router.get('/', async (req, res, next) => {
+  router.get('/:userId/orders', async (req, res, next) => {
     try {
-      const { id } = req.user;
+      const { userId }  = req.params
+      console.log(userId);
   
-      const response = await OrderServiceInstance.list(id);
-      res.status(200).send(response);
+      const response = await OrderServiceInstance.list(userId);
+      console.log(response);
+      res.status(200).json(response);
     } catch(err) {
       next(err);
     }
@@ -22,9 +24,11 @@ module.exports = (app) => {
   router.get('/:orderId', async (req, res, next) => {
     try {
       const { orderId } = req.params;
+      console.log(orderId);
   
-      const response = await OrderServiceInstance.findById(orderId);
-      res.status(200).send(response);
+      const response = await OrderServiceInstance.findByOrderId(orderId);
+      console.log(response);
+      res.status(200).json(response);
     } catch(err) {
       next(err);
     }

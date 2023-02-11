@@ -4,7 +4,7 @@ const pgp = require('pg-promise')({ capSQL: true });
 
 module.exports = class OrderItemModel {
 
-  constructor(data = {}) {
+  constructor(data={}) {
     this.created = data.created || moment.utc().toISOString();
     this.description = data.description;
     this.modified = moment.utc().toISOString();
@@ -13,15 +13,18 @@ module.exports = class OrderItemModel {
     this.product_id = data.id;
     this.qty = data.qty || 1;
     this.order_id = data.order_id || null;
+    this.img = data.img || null;
   }
 
   // Creates new order item
   static async create(data) {
-    try {
 
+    try {
+      console.log(data)
+      const columns = ['created','order_id','qty','price','product_id','name','description','modified','img']
       // Generate SQL statement
-      const statement = pgp.helpers.insert(data, null, 'orderitems') + 'RETURNING *';
- 
+      const statement = pgp.helpers.insert(data, columns, 'orderitems') + 'RETURNING *';
+    
       // Execute SQL statment
       const result = await db.query(statement);
 
@@ -41,12 +44,8 @@ module.exports = class OrderItemModel {
     try {
 
       // Generate SQL statement
-      const statement = `SELECT 
-                            orderitems.qty,
-                            orderitems.id AS cartItemId, 
-                            products.*
+      const statement = `SELECT *
                          FROM orderitems
-                         INNER JOIN products ON products.id = orderitems.product_id
                          WHERE order_id = $1`
       const values = [orderId];
   
@@ -54,10 +53,10 @@ module.exports = class OrderItemModel {
       const result = await db.query(statement, values);
 
       if (result.rows?.length) {
-        return result.rows;
+        return result.rows[0];
       }
 
-      return [];
+      return null;
 
     } catch(err) {
       throw new Error(err);

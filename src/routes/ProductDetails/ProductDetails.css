@@ -35,6 +35,8 @@
   border: 2px solid gold;
   color: gold;
   background-color: purple;
+  height: 40px;
+  margin-top:30px;
 }
 
 #add_cart {
@@ -49,7 +51,11 @@
 .cartButtons {
   display: flex;
   flex-direction: column;
-  margin:-20px;
+}
+
+.purchase {
+  display: flex;
+  flex-direction: row;
 }
 
 @media only screen and (max-width: 430px) {

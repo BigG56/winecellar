@@ -39,9 +39,9 @@ function App() {
           <Route path='users/:userId/products' element={<ProtectedRoute isSignedIn={isSignedIn}><ProductsPage /></ProtectedRoute>}/>
           <Route path="users/:userId/products/:productId/:productType" element={<ProtectedRoute isSignedIn={isSignedIn}><ProductDetails /></ProtectedRoute>}/>          
           <Route path="users/:userId/carts/:cartId" element={<ProtectedRoute isSignedIn={isSignedIn}><Cart/></ProtectedRoute>}/>
-          <Route path="/checkout" element={<ProtectedRoute isSignedIn={isSignedIn}><Checkout/></ProtectedRoute>}/>
-          <Route path="/orders" element={<ProtectedRoute isSignedIn={isSignedIn}><Orders/></ProtectedRoute>}/>
-          <Route path="/orders/:orderId" element={<ProtectedRoute isSignedIn={isSignedIn}><OrderDetails/></ProtectedRoute>}/>
+          <Route path="users/:userId/carts/:cartId/checkout" element={<ProtectedRoute isSignedIn={isSignedIn}><Checkout/></ProtectedRoute>}/>
+          <Route path="users/:userId/orders" element={<ProtectedRoute isSignedIn={isSignedIn}><Orders/></ProtectedRoute>}/>
+          <Route path="users/:userId/orders/:orderId" element={<ProtectedRoute isSignedIn={isSignedIn}><OrderDetails/></ProtectedRoute>}/>
         </Routes>
       </Router>
     </div>

@@ -108,4 +108,28 @@ module.exports = class CartItemModel {
     }
   }
 
+  static async deleteAll(cart_id) {
+    try {
+
+      // Generate SQL statement
+      const statement = `DELETE
+                         FROM cartitems
+                         WHERE cart_id = $1
+                         RETURNING *`;
+      const values = [cart_id];
+  
+      // Execute SQL statment
+      const result = await db.query(statement, values);
+
+      if (result.rows?.length) {
+        return result.rows[0];
+      }
+
+      return null;
+
+    } catch(err) {
+      throw new Error(err);
+    }
+  }
+
 }

@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { checkoutCart } from '../cart/Cart.actions';
-import { loadOrder, loadOrders } from './Orders.actions';
+import { loadOrders, loadOrderItems } from './Orders.actions';
 
-const initialState = {}
+const initialState = {};
 
 const orderSlice = createSlice({
   name: 'orders',
@@ -16,16 +16,23 @@ const orderSlice = createSlice({
         state[order.id] = order;
       })
       // Load order data by ID success
-      .addCase(loadOrder.fulfilled, (state, action) => {
+      /*.addCase(loadOrder.fulfilled, (state, action) => {
         const { order } = action.payload;
         state[order.id] = order;
-      })
+      })*/
       // Load order list success
       .addCase(loadOrders.fulfilled, (state, action) => {
         const { orders } = action.payload;
-        orders.forEach(order => {
+        orders.forEach((order) => {
           const { id } = order;
           state[id] = order;
+        });
+      })
+      .addCase(loadOrderItems.fulfilled, (state, action) => {
+        const { orderItems } = action.payload;
+        orderItems.forEach((orderItem) => {
+          const { id } = orderItem;
+          state[id] = orderItem;
         });
       })
   }

@@ -21,10 +21,11 @@ export const addItem = createAsyncThunk(
 );
 
 export const checkoutCart = createAsyncThunk(
-  'carts/myCart/checkoutCart',
-  async ({ cartId, paymentInfo }, thunkAPI) => {
+  'carts/:cartId/checkout',
+  async (checkoutItems, thunkAPI) => {
+    const { cartId, paymentInfo, userId} = checkoutItems;
     try {
-      const response = await checkout(cartId, paymentInfo);
+      const response = await checkout({cartId, paymentInfo, userId});
       return {
         order: response
       }

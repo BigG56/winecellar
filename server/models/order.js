@@ -5,24 +5,24 @@ const OrderItem = require('./orderItem');
 
 module.exports = class OrderModel {
 
-  constructor(data = {}) {
+  constructor(data={}) {
+    this.total = data.total || 0;
+    this.user_id = data.user_id;
     this.created = data.created || moment.utc().toISOString();
     this.items = data.items || [];
     this.modified = moment.utc().toISOString();
     this.status = data.status || 'PENDING';
-    this.total = data.total || 0;
-    this.user_id = data.user_id || null;
   }
 
   addItems(items) {
-    this.items = items.map(item => new OrderItem(item));
+    this.items = items.map(item => new OrderItem({...item}));
   }
 
   // Creates a new order for user
   async create() {
     try {
 
-      const { items, ...order } = this;
+      const {items, ...order } = this;
 
       // Generate SQL statement
       const statement = pgp.helpers.insert(order, null, 'orders') + ' RETURNING *';
@@ -68,7 +68,7 @@ module.exports = class OrderModel {
   }
 
   // Load user orders
-  static async findByUser(userId) {
+   static async findByUser(userId) {
     try {
 
       // Generate SQL statement
@@ -81,7 +81,7 @@ module.exports = class OrderModel {
       const result = await db.query(statement, values);
 
       if (result.rows?.length) {
-        return result.rows[0];
+        return result.rows;
       }
 
       return null;

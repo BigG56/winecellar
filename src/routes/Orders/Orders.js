@@ -12,24 +12,27 @@ function Orders() {
 
   const dispatch = useDispatch();
   const orders = useSelector(state => state.order);
+  const { user } = useSelector(state => state.user);
+  const userId = user.id;
 
   useEffect(() => {
     async function load() {
-      await dispatch(loadOrders());
+      await dispatch(loadOrders(userId));
     }
     load();
-  }, [dispatch]);
+  }, [userId, dispatch]);
 
   return (
     <div className="orders-page">
       <div className="orders-content-container">
-        <Typography variant="h4">Your Orders</Typography>
-        <Divider/>
-        <Typography variant="h6">{Object.keys(orders).length || 0} orders</Typography>
-        { orders && Object.keys(orders).length > 0 &&
-          Object.keys(orders).map((key) => {
-            const order = orders[key];
-            return <OrderCard {...order} key={order.id} />
+        <div className='orders-content-container-top'>
+          <Typography variant="h4">Your Orders</Typography>
+          <Divider/>
+          <Typography variant="h6">{Object.keys(orders).length || 0} orders</Typography>
+        </div>
+        { Object.keys(orders).map((key) => {
+          const order = orders[key];
+          return <OrderCard {...order} key={key} />
           })
         }
       </div>

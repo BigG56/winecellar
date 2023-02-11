@@ -48,13 +48,14 @@ export const updateCartItem = async (updatedItem) => {
 }
 
 // API interface for checking out a user's cart
-export const checkout = async (cartId, paymentInfo) => {
+export const checkout = async (checkoutItems) => {
   try {
-    const response = await API.post(`carts/myCart/checkout`, { cartId, paymentInfo });
+    const response = await API.post(`/users/:userId/carts/:cartId/checkout`, checkoutItems);
 
     return response.data;
 
   } catch(err) {
+    console.log(err);
     throw err.response.data;
   }
 }

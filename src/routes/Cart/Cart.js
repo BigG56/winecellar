@@ -11,6 +11,7 @@ import './Cart.css';
 function Cart() {
 
   const { cart } = useSelector(state => state.cart);
+  const { user } = useSelector(state => state.user);
 
   function calculateTotal() {
     return cart.items.reduce((total, { price, qty }) => {
@@ -69,7 +70,7 @@ function Cart() {
             variant="contained"
             className="checkout-btn"
             component={Link}
-            to="/checkout"
+            to={`/users/${user.id}/carts/${cart.id}/checkout`}
           >Checkout</Button>
             <div className="order-line-item">
               <Typography>Total</Typography>

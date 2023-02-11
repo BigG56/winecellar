@@ -80,10 +80,11 @@ module.exports = (app, passport) => {
   router.post('/:cartId/checkout', async (req, res, next) => {
     try {
       const { userId, cartId, paymentInfo } = req.body; 
+      console.log(userId, cartId, paymentInfo);
 
-      const response = await CartServiceInstance.checkout(cartId, userId, paymentInfo);
-
-      res.status(200).json(response);
+      const response = await CartServiceInstance.checkout(userId, cartId, paymentInfo);
+      console.log(response);
+      res.status(200).send(response);
     } catch(err) {
       next(err);
     }

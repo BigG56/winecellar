@@ -4,10 +4,15 @@ import Moment from 'react-moment';
 import Divider from '@material-ui/core/Divider';
 
 import './OrderCard.css';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom'
 
 const OrderCard = (props) => {
 
-  const { created, id, total } = props;
+  const { created, id, total, status, items} = props;
+  const { user } = useSelector(state => state.user);
+  const itemTotal = total / 100;
+  
 
   return (
     <div className="order-card-container">
@@ -22,28 +27,27 @@ const OrderCard = (props) => {
           <p className="order-card-header-title bottom">
             <Moment format="LL">{created}</Moment>
           </p>
-          <p className="order-card-header-title bottom">{`$${total/100}`}</p>
-          <p className="order-card-header-title bottom">thomasbergen15@gmail.com</p>
+          <p className="order-card-header-title bottom">{`£${itemTotal}`}</p>
+          <p className="order-card-header-title bottom">{`${user.email}`}</p>
           <div className="order-card-action-container">
-            <p className="order-card-header-title bottom">Order Details</p>
-            <Divider orientation="vertical" variant="middle"/>
             <p className="order-card-header-title bottom">Invoice</p>
           </div>
         </div>
       </div>
       <Divider/>
       <div className="order-card-content">
-        <img src="https://m.media-amazon.com/images/I/61fTX5TjAEL._UL1001_.jpg" alt="" className="order-card-content-img"/>
         <div className="order-card-content-info">
-          <p>Product 1</p>
-          <p>{`$${total}`}</p>
+          <p className="title">The WineCellar</p>
+          <p>Thank you for your purchase from the the WineCellar!</p>
         </div>
         <div className="order-card-content-action-container">
-          <Button variant="contained" color="primary">Buy Again</Button>
+          <Button id="view" type="contained" component={Link} to={`/users/${user.id}/orders/${id}`}>OrderDetails</Button>
+          <Divider/>
+          <Button variant="contained" id='view' component={Link} to ={`/users/${user.id}/products`}>Buy more</Button>
         </div>
       </div>
       <Divider/>
-      <div className="order-card-footer"></div>
+      <div className="order-card-footer">Status: {status} </div>
     </div>
   )
 }

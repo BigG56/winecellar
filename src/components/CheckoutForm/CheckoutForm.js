@@ -12,7 +12,8 @@ function CheckoutForm() {
   const elements = useElements();
   const stripe = useStripe();
 
-  const cart = useSelector(state => state.cart);
+  const { cart } = useSelector(state => state.cart);
+  const { user } = useSelector(state => state.user);
 
   const [isPaymentLoading] = useState(false);
 
@@ -27,8 +28,12 @@ function CheckoutForm() {
       const cardElement = elements.getElement(CardElement);
       
       const { token } = await stripe.createToken(cardElement);
-
-      await dispatch(checkoutCart({cartId: cart.id, paymentInfo: token}));
+      const checkoutItems = {
+        cartId: cart.id,
+        paymentInfo: token,
+        userId: user.id
+      }
+      await dispatch(checkoutCart(checkoutItems));
 
     } catch(err) {
       throw err;

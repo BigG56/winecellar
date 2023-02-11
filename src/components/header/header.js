@@ -45,7 +45,7 @@ const Header = () => {
                   <Button  onClick={handleLogout} color="inherit"><b>Logout</b></Button>
                 }
                 { isSignedIn &&
-                  <Button color="inherit" component={Link} to="/orders"><b>Orders</b></Button>
+                  <Button color="inherit" component={Link} to={`/users/${user.id}/orders`}><b>Orders</b></Button>
                 }
                 { isSignedIn &&
                   <Button color="inherit" component={Link} to={`/users/${user.id}/account`}><b>Account</b></Button>

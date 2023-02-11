@@ -67,22 +67,27 @@ function ProductDetails() {
             <div className="prod_details">
               <Typography className="prod_name" variant="h3">{product?.name}</Typography>
               <Typography className="prod_description" variant="h6">{product?.description}</Typography>
-              <Typography className="prod_price" variant="h3"><b>{product?.price}</b></Typography>
               { isSignedIn &&
-                <div className="cartButtons">
+              <>
+              <Typography className="prod_price" variant="h3"><b>{product?.price}</b></Typography>
+                <div className='purchase'>
                   <Incrementer
                     onDecrement={handleDecrement}
                     onIncrement={handleIncrement}
                     value={quantity}
                    />
+                   <div className='cartButtons'>
                   <Button id="add_cart" type="contained" color="primary" onClick={handleAddToCart}>Add to Cart</Button>
+                  <Button id="back" type="contained" color="primary" component={Link} to={`/users/${user.id}/products`}>back</Button>
+                  </div>
                 </div>
-              }
-              { isSignedIn &&      
-               <Button id="back" type="contained" color="primary" component={Link} to={`/users/${user.id}/products`}>back</Button>
+                </>
               }
               { !isSignedIn &&
+              <>
+                <Typography className="prod_price" variant="h3"><b>{product?.price}</b></Typography>
                 <Button id="back" type="contained" color="primary" component={Link} to={`/products`}>back</Button>
+              </>
               }
             </div>
           </>

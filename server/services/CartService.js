@@ -2,6 +2,8 @@ const createError = require('http-errors');
 const CartModel = require('../models/cart');
 const OrderModel = require('../models/order');
 const CartItemModel = require('../models/cartItem');
+const OrderItemModel = require('../models/orderItem');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 module.exports = class CartService {
 
@@ -81,37 +83,43 @@ module.exports = class CartService {
     }
   }
 
-  async checkout(cartId, user_id, paymentInfo) {
+  async checkout(userId, cartId, paymentInfo) {
     try {
-
-      const stripe = require('stripe')(STRIPE_SECRET_KEY);
-
       // Load cart items
       const cartItems = await CartItemModel.find(cartId);
 
       // Generate total price from cart items
-      const total = cartItems.reduce((total, item) => {
-        total += Number(item.price);
+      const total = cartItems.reduce((total, {price, qty}) => {
+        total += Number(price.replace(/[^0-9.-]+/g,"") * qty * 100);
         return total;
       }, 0);
-
+    
+      const user_id = userId;
       // Generate initial order
-      const Order = new OrderModel({ total, user_id });
+      const Order = new OrderModel({total, user_id});
       Order.addItems(cartItems);
       await Order.create();
 
+      //Create order items
+      const order_id = Order.id;
+      Order.items = cartItems.map(item => new OrderItemModel({...item, order_id}))
+      await OrderItemModel.create(Order.items)
+
       // Make charge to payment method
-      const charge = await stripe.charges.create({
+      await stripe.charges.create({
         amount: total,
         currency: 'GBP',
-        source: paymentInfo.id,
+        source: 'tok_visa',
         description: 'The WineCellar'
       });
-
+      
       // On successful charge to payment method, update order status to COMPLETE
-      const order = Order.update({ status: 'COMPLETE' });
+      Order.update({ status: 'COMPLETE' });
+      await CartItemModel.deleteAll(cartId)
+      console.log(Order);
+      
 
-      return order;
+      return Order;
 
     } catch(err) {
       console.error(err);

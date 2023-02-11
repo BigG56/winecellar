@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { checkLoginStatus } from '../auth/Auth.actions';
 import { addItem, checkoutCart, loadCart, removeItem, updateItem } from './Cart.actions';
-import { StarRateTwoTone } from '@material-ui/icons';
+
 
 const initialState = {
   cart: {
@@ -26,7 +26,7 @@ const cartSlice = createSlice({
         Object.assign(state.cart, cart);
       })
       .addCase(checkoutCart.fulfilled, (state, action) => {
-        
+        state.cart.items = [];
       })
       .addCase(loadCart.fulfilled, (state, action) => {
         const { cart } = action.payload;

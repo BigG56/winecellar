@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchOrder, fetchOrders } from '../../api/order';
+import { fetchOrders, fetchOrderItems } from '../../api/order';
 
-export const loadOrder = createAsyncThunk(
+/*export const loadOrder = createAsyncThunk(
   'orders/loadOrder',
   async (orderId, thunkAPI) => {
     try {
@@ -13,16 +13,30 @@ export const loadOrder = createAsyncThunk(
       throw err;
     }
   }
-);
+);*/
 
 export const loadOrders = createAsyncThunk(
   'orders/loadOrders',
-  async (params, thunkAPI) => {
+  async (userId, thunkAPI) => {
     try {
-      const response = await fetchOrders();
+      const response = await fetchOrders(userId);
       return {
         orders: response
-      }
+    }
+    } catch(err) {
+      throw err;
+    }
+  }
+);
+
+export const loadOrderItems = createAsyncThunk(
+  'orders/loadOrderItems',
+  async (orderId, thunkAPI) => {
+    try {
+      const response = await fetchOrderItems(orderId);
+      return {
+        orderItems: response
+    }
     } catch(err) {
       throw err;
     }

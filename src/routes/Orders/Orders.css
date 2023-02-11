@@ -1,10 +1,24 @@
 .orders-page {
-    display: flex;
     height: 100%;
-    padding: 0 25%;
+    color:purple;
+    display:flex;
+    padding: 10px;
   }
   
   .orders-content-container {
     flex: 1;
     padding-top: 5%;
+    flex-direction: column;
+    height:600px;
+    overflow-y:auto;
+    overflow-x:auto;
+  }
+
+  .orders-content-container-top {
+    background-color: gold;
+    border:2px solid purple;
+    }
+  .orders {
+    border:2px solid black;
+    overflow:hidden;
   }

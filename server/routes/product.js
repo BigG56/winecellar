@@ -14,6 +14,7 @@ module.exports = (app) => {
       const queryParams = req.query;
 
       const response = await ProductServiceInstance.list(queryParams);
+      console.log(response);
       res.status(200).send(response);
     } catch(err) {
       next(err);
