@@ -21,7 +21,7 @@ module.exports = (app) => {
     }
   });
 
-  router.get('/:orderId', async (req, res, next) => {
+  router.get('/:userId/orders/:orderId', async (req, res, next) => {
     try {
       const { orderId } = req.params;
       console.log(orderId);

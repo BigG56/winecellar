@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { checkoutCart } from '../cart/Cart.actions';
-import { loadOrders, loadOrderItems } from './Orders.actions';
+import { loadOrders } from './Orders.actions';
 
 const initialState = {};
 
@@ -26,13 +26,6 @@ const orderSlice = createSlice({
         orders.forEach((order) => {
           const { id } = order;
           state[id] = order;
-        });
-      })
-      .addCase(loadOrderItems.fulfilled, (state, action) => {
-        const { orderItems } = action.payload;
-        orderItems.forEach((orderItem) => {
-          const { id } = orderItem;
-          state[id] = orderItem;
         });
       })
   }

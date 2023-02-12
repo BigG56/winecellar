@@ -49,13 +49,13 @@ module.exports = class OrderService {
   async findByOrderId(orderId) {
     try {
       // Load user orderitems based on order ID
-      const order = await OrderItemModel.find(orderId);
-      console.log(order);
+      const orderItems = await OrderItemModel.find(orderId);
+      console.log(orderItems);
 
-      return order;
+      return orderItems;
 
     } catch(err) {
-      throw createError(404, 'Order record not found');
+      throw createError(404, 'Order item record not found');
     }
   }
 

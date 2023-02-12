@@ -1,0 +1,22 @@
+.order-item-card {
+    display:flex;
+    background-color: purple;
+    border: 2px solid gold;
+    margin:5px;
+    color:gold;
+    flex-direction: row;
+}
+
+.orderItemImg {
+    height:200px;
+    width:200px;
+}
+
+.itemName {
+    border:2px solid gold;
+}
+
+.itemDescription {
+    flex-direction: column;
+    flex-wrap: wrap;
+}

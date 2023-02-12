@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 
 const OrderCard = (props) => {
 
-  const { created, id, total, status, items} = props;
+  const { created, id, total, status} = props;
   const { user } = useSelector(state => state.user);
   const itemTotal = total / 100;
   
